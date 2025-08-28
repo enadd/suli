@@ -66,6 +66,10 @@ def preprocessing(df_SL):
 #Preprocessing Data
 df_sl = preprocessing(df_SL)
 
+def total_sales(df_sl):
+    Omset = df_sl['Omset'].sum()
+    return Omset 
+
 def pie_jumlahbarang(df_sl):
     # Konversi kolom Quantity ke numerik, paksa error jadi NaN
     df_sl['Quantity'] = pd.to_numeric(df_sl['Quantity'], errors='coerce')
@@ -110,7 +114,9 @@ def main():
 
     fig1 = pie_jumlahbarang(df_sl)
     fig2 = bar_jumlahbarang(df_sl)
-    
+
+    st.write(total_sales(df_sl)
+             
     st.subheader("Barang Terjual")
     col1, col2 = st.columns(2)
     with col1:
@@ -121,4 +127,5 @@ def main():
     
 if __name__ == "__main__":
     main()
+
 
