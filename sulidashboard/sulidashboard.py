@@ -58,9 +58,6 @@ def hapus_baris_kosong(df, kolom):
     return df_bersih
 
 def formatting_data(df_pi):
-    df_PI.columns = df_PI.iloc[0]
-    df_pi = df_PI.iloc[1:].reset_index(drop=True)
-    df_pi.columns.name = None
     df_pi.columns = df_pi.columns.str.strip()
     # df_pi['Periode Input'] = pd.to_datetime(df_pi['Periode Input'], format='%B %d, %Y', errors='coerce')
     return df_pi
@@ -132,5 +129,6 @@ def main():
     
 if __name__ == "__main__":
     main()
+
 
 
