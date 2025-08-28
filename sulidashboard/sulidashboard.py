@@ -94,7 +94,7 @@ def bar_jumlahbarang(df_sl):
 
 def plot_piechart(df_sl):
     # Hitung jumlah masing-masing barang
-    count_df = df_sl['Nama Barang'].value_sum().reset_index()
+    count_df = df_sl['Nama Barang'].sum().reset_index()
     count_df.columns = ['Nama Barang', 'Jumlah']
 
     # Buat pie chart dengan Plotly
@@ -124,6 +124,7 @@ def main():
     
 if __name__ == "__main__":
     main()
+
 
 
 
