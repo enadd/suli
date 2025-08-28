@@ -58,8 +58,8 @@ def hapus_baris_kosong(df, kolom):
     return df_bersih
 
 def formatting_data(df_pi):
-    df_PI.columns = df_PI.iloc[3]
-    df_pi = df_PI.iloc[4:].reset_index(drop=True)
+    df_PI.columns = df_PI.iloc[0]
+    df_pi = df_PI.iloc[1:].reset_index(drop=True)
     df_pi.columns.name = None
     # df_pi['Periode Input'] = pd.to_datetime(df_pi['Periode Input'], format='%B %d, %Y', errors='coerce')
     return df_pi
@@ -110,7 +110,7 @@ df_pi = preprocessing(df_PI)
 def plot_piechart(df_pi):
     # Hitung jumlah masing-masing barang
     count_df = df_pi['Nama_Barang'].value_counts().reset_index()
-    count_df.columns = ['Nama_Barang', 'Quantity']
+    count_df.columns = ['Nama_Barang', 'Jumlah']
 
     # Buat pie chart dengan Plotly
     fig = px.pie(count_df, names='Nama_Barang', values='Jumlah', hole=0.3)
@@ -126,12 +126,7 @@ def main():
 
     # Menampilkan Pie Chart dan Bar Chart
     fig1 = plot_piechart(df_pi)
-    st.plotchart(fig1)
+    st.plotlychart(fig1)
     
 if __name__ == "__main__":
     main()
-
-
-
-
-
