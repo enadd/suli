@@ -47,7 +47,7 @@ df_PI = get_data()
 
 st.write(df_PI.columns)
 if 'Nama_Barang' in df_PI.columns:
-    st.write(df_PI['Nama_Barang'])
+    st.write(df_PI['Nama_Barang', 'Quantity'])
 else:
     st.write("Kolom 'Nama_Barang' tidak ditemukan.")
 #Data Preprocessing
@@ -133,6 +133,7 @@ def main():
     
 if __name__ == "__main__":
     main()
+
 
 
 
