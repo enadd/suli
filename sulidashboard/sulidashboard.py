@@ -92,20 +92,21 @@ def preprocessing(df_PI):
     df_pi = formatting_data(df_PI)
   # df_pi = rename_columns(df_pi)
     df_pi = drop_data(df_pi)
-  #  df_pi = hapus_baris_kosong(df_pi, "Periode Input")
-    df_pi = hapus_baris_kosong(df_pi, "NAMA SDM IPTEK")
+    df_pi = hapus_baris_kosong(df_pi, "In_Id")
+    df_pi = hapus_baris_kosong(df_pi, "Tanggal_Pengiriman")
   #  df_pi = hapus_baris_kosong(df_pi, "JENJANG PENDIDIKAN DITEMPUH")
   #  df_pi = hapus_baris_kosong(df_pi, "STATUS")
-    df_pi['Periode Input'] = df_pi['Periode Input'].apply(convert_month)
-    df_pi['Periode Input'] = pd.to_datetime(df_pi['Periode Input'], format='%B %d, %Y', errors='coerce')
-    df_pi['STATUS'] = df_pi['STATUS'].replace(r'^\s*$', None, regex=True)
-    df_pi['STATUS'] = df_pi['STATUS'].fillna('Unknown')
-    df_pi['JENJANG PENDIDIKAN DITEMPUH'] = df_pi['JENJANG PENDIDIKAN DITEMPUH'].replace(r'^\s*$', None, regex=True)
-    df_pi['JENJANG PENDIDIKAN DITEMPUH'] = df_pi['JENJANG PENDIDIKAN DITEMPUH'].fillna('Unknown')
+    #df_pi['Periode Input'] = df_pi['Periode Input'].apply(convert_month)
+    #df_pi['Periode Input'] = pd.to_datetime(df_pi['Periode Input'], format='%B %d, %Y', errors='coerce')
+    df_pi['Kategori'] = df_pi['Kategori'].replace(r'^\s*$', None, regex=True)
+    df_pi['Kategori'] = df_pi['Kategori'].fillna('Unknown')
     return df_pi
 
 #Preprocessing Data
 df_pi = preprocessing(df_PI)
+
+def total_sales(df_pi):
+    jumlah sales = 
 
 # Fungsi pie_chart yang sudah Anda buat
 def pie_chart(df_pi):
@@ -348,5 +349,6 @@ def main():
     
 if __name__ == "__main__":
     main()
+
 
 
