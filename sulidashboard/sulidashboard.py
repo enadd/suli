@@ -106,7 +106,18 @@ def preprocessing(df_PI):
 #Preprocessing Data
 df_pi = preprocessing(df_PI)
 
+def plot_piechart(df):
+    # Hitung jumlah masing-masing barang
+    count_df = df['Nama_Barang'].value_counts().reset_index()
+    count_df.columns = ['Nama_Barang', 'Quantity']
 
+    # Buat pie chart dengan Plotly
+    fig = px.pie(count_df, names='Nama_Barang', values='Jumlah', hole=0.3)
+
+    # Atur posisi teks label di luar batang
+    fig.update_traces(textinfo='label+value+percent', textposition='inside')
+    return fig
+"""
 # Fungsi pie_chart yang sudah Anda buat
 def pie_chart(df_pi):
     # Group by 'JENIS' and 'STATUS', then count the occurrences
@@ -159,13 +170,15 @@ def pie_chart(df_pi):
     )
 
     return fig
-
+"""
+"""
 def selisih(target, hasil):
     """
     Fungsi untuk menghitung selisih antara target dan hasil.
     """
     return target - hasil
-
+"""
+"""
 def filter_s2_s3(df_pi):
     """
     Fungsi untuk menampilkan Nama SDM IPTEK dan Jenjang Pendidikan Ditempuh
@@ -199,26 +212,8 @@ fig = px.bar(chart_data,
              "Selisih": "red"   
     })
 fig.update_traces(textposition='outside')
-
-def get_unknown_status(df_pi):
-    """
-    Filter data untuk mendapatkan nama-nama dengan status 'unknown' atau kosong.
-    
-    Parameters:
-        data (pd.DataFrame): DataFrame berisi data yang akan difilter.
-        
-    Returns:
-        pd.DataFrame: DataFrame berisi nama dan status yang tidak diketahui.
-    """
-    # Filter data untuk status 'unknown' atau kosong
-    unknown_data = df_pi[
-        df_pi["JENJANG PENDIDIKAN DITEMPUH"].isnull() | 
-        (df_pi['JENJANG PENDIDIKAN DITEMPUH'] == 'Unknown')
-    ]
-
-    # Pilih kolom yang relevan untuk output
-    return unknown_data[["NAMA SDM IPTEK", "JENJANG PENDIDIKAN DITEMPUH"]]
-    
+"""
+"""
 def bar_chart(df_pi):
     # Group by 'JENIS' and count the occurrences
     jenis_counts = df_pi.groupby('JENJANG PENDIDIKAN DITEMPUH')['NAMA SDM IPTEK'].count().reset_index(name='Count')
@@ -232,7 +227,8 @@ def bar_chart(df_pi):
     fig.update_traces(textposition='outside')
 
     return fig    
-
+"""
+"""
 def plot_barchart(df, col):
     # Ganti string kosong atau whitespace dengan NaN
     df[col] = df[col].replace(r'^\s*$', None, regex=True)
@@ -253,7 +249,8 @@ def plot_barchart(df, col):
     fig.update_traces(textposition='outside')
 
     return fig
-
+"""
+"""
 def plot_piechart(df):
     # Hitung jumlah masing-masing kategori reputasi
     count_df = df['JENJANG PENDIDIKAN DITEMPUH'].value_counts().reset_index()
@@ -265,7 +262,8 @@ def plot_piechart(df):
     # Atur posisi teks label di luar batang
     fig.update_traces(textinfo='label+value+percent', textposition='inside')
     return fig
-
+"""
+"""
 def plot_piechart(status):
     # Hitung jumlah masing-masing kategori reputasi
     count_status = status['STATUS'].value_counts().reset_index()
@@ -277,6 +275,7 @@ def plot_piechart(status):
      # Atur posisi teks label di luar batang
     fig.update_traces(textinfo='label+value+percent', textposition='inside')
     return fig
+"""
 
 # Streamlit App
 def main():
@@ -286,72 +285,6 @@ def main():
     # Menampilkan Pie Chart dan Bar Chart
     
     fig_pie = pie_chart(df_pi)
-    fig_bar = bar_chart(df_pi)
-    fig_bar1 = plot_barchart(df_pi, 'NAMA UNIVERSITAS')
-    fig_bar2 = plot_barchart(df_pi, 'JENJANG PENDIDIKAN DITEMPUH')
-    fig_pie1 = plot_piechart(df_pi)
-    fig_bar3 = plot_barchart(df_pi, 'STATUS')
-
-    # Create two columns
-    col1, col2 = st.columns(2)
-    
-    # Menampilkan hasil filter s2 dan s3
-    with col1:
-        st.subheader("Nama dan Pendidikan yang Ditempuh")
-        st.dataframe(filtered_df)
-
-    # Panggil fungsi dan tampilkan di Streamlit
-    with col2:
-        st.subheader("Nama-Nama yang Belum Melanjutkan Studi S2/S3")
-
-    # Hasil filter data
-        unknown_status_data = get_unknown_status(df_pi)
-        st.dataframe(unknown_status_data)
-    
-    # Menampilkan bar chart target
-    st.subheader("Perbandingan Target, Hasil, dan Selisih Pendidikan S2/S3")
-    st.plotly_chart(fig)
-    # Tampilkan target, hasil, dan selisih
-    st.write(f"**Target**: {target}")
-    st.write(f"**SDM yang sedang menempuh studi**: {hasil}")
-    st.write(f"**SDM yang belum lanjut studi**: {selisih_value}")
-    
-    # Create two columns
-    col1, col2 = st.columns(2)
-
-    # Display pie chart in the first column
-    with col1:
-        st.subheader("Pie Chart Jenjang Pendidikan")
-        st.plotly_chart(fig_pie)
-    # Display bar chart in the second column
-    with col2:
-        st.subheader("Bar Chart Perbandingan Jenjang Pendidikan")
-        st.plotly_chart(fig_bar)
-
-    # Create two columns
-    col1, col2= st.columns(2)
-
-    # Display pie chart in the first column
-    with col1:
-        st.subheader("Pie Chart Status Pendidikan")
-        st.plotly_chart(fig_pie1)
-        
-    # Display bar chart in the second column
-    with col2:
-        st.subheader("Status Pendidikan")
-        st.plotly_chart(fig_bar3)
-        
-    #Bar Chart Kelompok Riset
-    st.subheader("Bar Chart Nama Universitas")
-    st.plotly_chart(fig_bar1)
-
-    
+   
 if __name__ == "__main__":
     main()
-
-
-
-
-
-
-
