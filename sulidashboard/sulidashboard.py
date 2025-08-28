@@ -61,6 +61,7 @@ def formatting_data(df_pi):
     df_PI.columns = df_PI.iloc[0]
     df_pi = df_PI.iloc[1:].reset_index(drop=True)
     df_pi.columns.name = None
+    df_pi.columns = df_pi.columns.str.strip()
     # df_pi['Periode Input'] = pd.to_datetime(df_pi['Periode Input'], format='%B %d, %Y', errors='coerce')
     return df_pi
 
@@ -127,8 +128,9 @@ def main():
 
     # Menampilkan Pie Chart dan Bar Chart
     fig1 = plot_piechart(df_pi)
-    st.plotlychart(fig1)
+    st.plotly_chart(fig1)
     
 if __name__ == "__main__":
     main()
+
 
