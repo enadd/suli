@@ -47,66 +47,8 @@ df_PI = get_data()
 
 st.write(df_PI.columns)
 
-#Data Preprocessing
-def hapus_baris_kosong(df, kolom):
-    # Ganti string kosong atau whitespace dengan NaN
-    df[kolom] = df[kolom].replace(r'^\s*$', None, regex=True)
-    
-    # Hapus baris yang memiliki nilai NaN pada kolom tertentu
-    df_bersih = df.dropna(subset=[kolom])
-    
-    return df_bersih
-
-def formatting_data(df_pi):
-    df_pi.columns = df_pi.columns.str.strip()
-    # df_pi['Periode Input'] = pd.to_datetime(df_pi['Periode Input'], format='%B %d, %Y', errors='coerce')
-    return df_pi
-
-def drop_data(df_pi):
-    df_pi = df_pi.drop(df_pi.columns[26:31], axis=1)
-    # Drop kolom pada indeks 25
-    # df_pi = df_pi.iloc[:, :-1]
-    
-    # Hapus baris yang mengandung nilai null pada kolom 'Judul'
-    df_pi = df_pi.dropna(how='all')  # Hapus baris dengan semua nilai null
-    return df_pi
-
-# Kamus bulan
-bulan_dict = {
-    'Januari': 'January', 'Februari': 'February', 'Maret': 'March',
-    'April': 'April', 'Mei': 'May', 'Juni': 'June',
-    'Juli': 'July', 'Agustus': 'August', 'September': 'September',
-    'Oktober': 'October', 'November': 'November', 'Desember': 'December'
-}
-
-# Fungsi untuk mengonversi nama bulan
-def convert_month(date_str):
-    for id_ind, id_eng in bulan_dict.items():
-        if id_ind in date_str:
-            return date_str.replace(id_ind, id_eng)
-    return date_str
-
-# Menggunakan cache untuk data preprocessing
-@st.cache_data
-def preprocessing(df_PI):
-    df_pi = formatting_data(df_PI)
-  # df_pi = rename_columns(df_pi)
-    df_pi = drop_data(df_pi)
-    #df_pi = hapus_baris_kosong(df_pi, "In_Id")
-    #df_pi = hapus_baris_kosong(df_pi, "Tanggal_Pengiriman")
-  #  df_pi = hapus_baris_kosong(df_pi, "JENJANG PENDIDIKAN DITEMPUH")
-  #  df_pi = hapus_baris_kosong(df_pi, "STATUS")
-    #df_pi['Periode Input'] = df_pi['Periode Input'].apply(convert_month)
-    #df_pi['Periode Input'] = pd.to_datetime(df_pi['Periode Input'], format='%B %d, %Y', errors='coerce')
-    #df_pi['Kategori'] = df_pi['Kategori'].replace(r'^\s*$', None, regex=True)
-    #df_pi['Kategori'] = df_pi['Kategori'].fillna('Unknown')
-    return df_pi
-
-#Preprocessing Data
-df_pi = preprocessing(df_PI)
-
 st.write(df_pi.columns.tolist())
-def plot_piechart(df_pi):
+def plot_piechart(df_PI):
     # Hitung jumlah masing-masing barang
     count_df = df_pi['Nama_Barang'].value_counts().reset_index()
     count_df.columns = ['Nama_Barang', 'Jumlah']
@@ -124,11 +66,12 @@ def main():
     """### **Data Publikasi Internasional**"""
 
     # Menampilkan Pie Chart dan Bar Chart
-    fig1 = plot_piechart(df_pi)
+    fig1 = plot_piechart(df_PI)
     st.plotly_chart(fig1)
     
 if __name__ == "__main__":
     main()
+
 
 
 
