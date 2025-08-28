@@ -66,6 +66,34 @@ def preprocessing(df_SL):
 #Preprocessing Data
 df_sl = preprocessing(df_SL)
 
+def pie_jumlahbarang(df_sl):
+    # Group by 'JENIS' and count the occurrences
+    jenis_counts = df_ki.groupby('Nama Barang')['Quantity'].count().reset_index(name='Count')
+
+    # Create the bar chart using Plotly Express with color and text labels
+    fig = px.pie(jenis_counts, x='Nama Barang', y='Count',
+                 labels={'Nama Barang': 'Nama Barang', 'Count': 'Jumlah'},
+                 color='Nama Barang', text='Count')  # Menambahkan parameter text untuk label
+                
+    # Atur posisi teks label di luar batang
+    fig.update_traces(textinfo='label+value+percent', textposition='inside')
+   
+    return fig
+
+def bar_jumlahbarang(df_sl):
+    # Group by 'JENIS' and count the occurrences
+    jenis_counts = df_ki.groupby('Nama Barang')['Quantity'].count().reset_index(name='Count')
+
+    # Create the bar chart using Plotly Express with color and text labels
+    fig = px.bar(jenis_counts, x='Nama Barang', y='Count',
+                 labels={'Nama Barang': 'Nama Barang', 'Count': 'Jumlah'},
+                 color='Nama Barang', text='Count')  # Menambahkan parameter text untuk label
+                
+    # Atur posisi teks label di luar batang
+    fig.update_traces(textposition='outside')
+   
+    return fig
+
 def plot_piechart(df_sl):
     df_sl = df_sl[df_sl['Nama Barang'].notna()]
     
@@ -85,13 +113,22 @@ def plot_piechart(df_sl):
 def main():
     """### **Data Publikasi Internasional**"""
 
-    # Menampilkan Pie Chart dan Bar Chart
-    st.subheader("Total Barang Terjual")
-    fig1 = plot_piechart(df_sl)
-    st.plotly_chart(fig1)
+    fig1 = pie_jumlahbarang(df_sl)
+    fig2 = bar_jumlahbarang(df_sl)
+    fig3 = plot_piechart(df_sl)
+
+    st.subheader("Barang Terjual")
+    col1, col2 = st.columns(2)
+    with col1:
+        st.plotly_chart(fig1)
+    with col2:
+        st.plotly_chart(fig2)
+
+    st.plotly_chart(fig3)
     
 if __name__ == "__main__":
     main()
+
 
 
 
