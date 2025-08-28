@@ -67,8 +67,9 @@ def preprocessing(df_SL):
 df_sl = preprocessing(df_SL)
 
 def total_sales(df_sl):
-    Omset = df_sl['Omset'].sum()
-    return Omset 
+    df_sl['Omset'] = pd.to_numeric(df_sl['Omset'], errors='coerce')
+    df_sl = df_sl.dropna(subset=['Omset'])
+    return df_sl['Omset'].sum()
 
 def pie_jumlahbarang(df_sl):
     # Konversi kolom Quantity ke numerik, paksa error jadi NaN
@@ -127,6 +128,7 @@ def main():
     
 if __name__ == "__main__":
     main()
+
 
 
 
