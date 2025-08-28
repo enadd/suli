@@ -68,7 +68,6 @@ def drop_data(df_pi):
     # df_pi = df_pi.iloc[:, :-1]
     
     # Hapus baris yang mengandung nilai null pada kolom 'Judul'
-    df_pi = df_pi.dropna(subset=['NAMA SDM IPTEK'])
     df_pi = df_pi.dropna(how='all')  # Hapus baris dengan semua nilai null
     return df_pi
 
@@ -349,4 +348,5 @@ def main():
     
 if __name__ == "__main__":
     main()
+
 
