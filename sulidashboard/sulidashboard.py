@@ -173,41 +173,6 @@ def pie_chart(df_pi):
 """
 
 """
-def filter_s2_s3(df_pi):
-    """
-    Fungsi untuk menampilkan Nama SDM IPTEK dan Jenjang Pendidikan Ditempuh
-    yang memiliki jenjang pendidikan S2 atau S3.
-    """
-    # Filter data untuk jenjang pendidikan S2 atau S3
-    filtered_df_pi = df_pi[(df_pi['JENJANG PENDIDIKAN DITEMPUH'] == 'S2') | 
-                         (df_pi['JENJANG PENDIDIKAN DITEMPUH'] == 'S3')]
-    
-    # Hanya menampilkan kolom Nama SDM IPTEK dan Jenjang Pendidikan Ditempuh
-    return filtered_df_pi[['NAMA SDM IPTEK', 'JENJANG PENDIDIKAN DITEMPUH']]
-
-# Menggunakan fungsi untuk filter
-filtered_df = filter_s2_s3(df_pi)
-target = df_pi['NAMA SDM IPTEK'].dropna().nunique()
-hasil = len(filtered_df)
-selisih_value = selisih(target, hasil)
-
-chart_data = pd.DataFrame({
-    "Kategori": ["Target", "Hasil", "Selisih"],
-    "Jumlah": [target, hasil, selisih_value]
-})
-fig = px.bar(chart_data, 
-             x="Jumlah", 
-             y="Kategori", 
-             orientation='h',
-             color="Kategori",  # Tambahkan parameter warna berdasarkan kategori
-             color_discrete_map={
-             "Target": "blue",       
-             "Hasil": "lightblue",    
-             "Selisih": "red"   
-    })
-fig.update_traces(textposition='outside')
-"""
-"""
 def bar_chart(df_pi):
     # Group by 'JENIS' and count the occurrences
     jenis_counts = df_pi.groupby('JENJANG PENDIDIKAN DITEMPUH')['NAMA SDM IPTEK'].count().reset_index(name='Count')
@@ -281,5 +246,6 @@ def main():
    
 if __name__ == "__main__":
     main()
+
 
 
