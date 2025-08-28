@@ -44,7 +44,6 @@ def get_data():
 # df_PI = pd.read_excel('Form Capaian PRSDI.xlsx', sheet_name='PI')
 # dfl_PI = get_data()
 df_PI = get_data()
-df_sivitas = pd.read_excel('Sivitas_PRSDI.xlsx')
 
 #Data Preprocessing
 def hapus_baris_kosong(df, kolom):
@@ -350,3 +349,4 @@ def main():
     
 if __name__ == "__main__":
     main()
+
