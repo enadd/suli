@@ -45,6 +45,7 @@ def get_data():
 # dfl_PI = get_data()
 df_PI = get_data()
 
+st.write(df_PI.columns)
 #Data Preprocessing
 def hapus_baris_kosong(df, kolom):
     # Ganti string kosong atau whitespace dengan NaN
@@ -347,6 +348,7 @@ def main():
     
 if __name__ == "__main__":
     main()
+
 
 
 
