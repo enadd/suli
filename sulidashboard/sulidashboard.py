@@ -105,8 +105,6 @@ def preprocessing(df_PI):
 #Preprocessing Data
 df_pi = preprocessing(df_PI)
 
-def total_sales(df_pi):
-    jumlah sales = 
 
 # Fungsi pie_chart yang sudah Anda buat
 def pie_chart(df_pi):
@@ -349,6 +347,7 @@ def main():
     
 if __name__ == "__main__":
     main()
+
 
 
 
