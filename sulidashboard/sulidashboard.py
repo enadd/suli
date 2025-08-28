@@ -99,8 +99,8 @@ def preprocessing(df_PI):
   #  df_pi = hapus_baris_kosong(df_pi, "STATUS")
     #df_pi['Periode Input'] = df_pi['Periode Input'].apply(convert_month)
     #df_pi['Periode Input'] = pd.to_datetime(df_pi['Periode Input'], format='%B %d, %Y', errors='coerce')
-    df_pi['Kategori'] = df_pi['Kategori'].replace(r'^\s*$', None, regex=True)
-    df_pi['Kategori'] = df_pi['Kategori'].fillna('Unknown')
+    #df_pi['Kategori'] = df_pi['Kategori'].replace(r'^\s*$', None, regex=True)
+    #df_pi['Kategori'] = df_pi['Kategori'].fillna('Unknown')
     return df_pi
 
 #Preprocessing Data
@@ -348,6 +348,7 @@ def main():
     
 if __name__ == "__main__":
     main()
+
 
 
 
