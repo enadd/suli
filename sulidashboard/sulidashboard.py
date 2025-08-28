@@ -92,27 +92,13 @@ def bar_jumlahbarang(df_sl):
    
     return fig
 
-def plot_piechart(df_sl):
-    # Hitung jumlah masing-masing barang
-    count_df = df_sl['Nama Barang'].sum().reset_index()
-    count_df.columns = ['Nama Barang', 'Jumlah']
-
-    # Buat pie chart dengan Plotly
-    fig = px.pie(count_df, names='Nama Barang', values='Jumlah', hole=0.3)
-
-    # Atur posisi teks label di luar batang
-    fig.update_traces(textinfo='label+value+percent', textposition='inside')
-    return fig
-
-
 # Streamlit App
 def main():
     """### **Data Publikasi Internasional**"""
 
     fig1 = pie_jumlahbarang(df_sl)
     fig2 = bar_jumlahbarang(df_sl)
-    fig3 = plot_piechart(df_sl)
-
+    
     st.subheader("Barang Terjual")
     col1, col2 = st.columns(2)
     with col1:
@@ -120,10 +106,10 @@ def main():
     with col2:
         st.plotly_chart(fig2)
 
-    st.plotly_chart(fig3)
     
 if __name__ == "__main__":
     main()
+
 
 
 
