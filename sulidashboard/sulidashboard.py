@@ -171,13 +171,7 @@ def pie_chart(df_pi):
 
     return fig
 """
-"""
-def selisih(target, hasil):
-    """
-    Fungsi untuk menghitung selisih antara target dan hasil.
-    """
-    return target - hasil
-"""
+
 """
 def filter_s2_s3(df_pi):
     """
@@ -288,3 +282,4 @@ def main():
    
 if __name__ == "__main__":
     main()
+
