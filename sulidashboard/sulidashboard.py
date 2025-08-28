@@ -36,22 +36,41 @@ def get_data():
     spreadsheet = client.open("Transaksi Masuk")
     sheet = spreadsheet.get_worksheet(0)
     data = sheet.get_all_values()
-    df_PI = pd.DataFrame(data[1:], columns=data[0])
-    return df_PI
+    df_SL = pd.DataFrame(data[1:], columns=data[0])
+    return df_SL
 
 # Sheets Publikasi Internasional
-# df_PI = pd.read_excel('Form Capaian PRSDI.xlsx', sheet_name='PI')
-# dfl_PI = get_data()
-df_PI = get_data()
+# df_SL = pd.read_excel('Form Capaian PRSDI.xlsx', sheet_name='SL')
+# dfl_SL = get_data()
+df_SL = get_data()
 
-st.write(df_PI.columns)
+st.write(df_SL.columns)
 
-st.write(df_PI.columns.tolist())
-def plot_piechart(df_PI):
-    df_PI = df_PI[df_PI['Nama Barang'].notna()]
+st.write(df_SL.columns.tolist())
+
+#Data Preprocessing
+def hapus_baris_kosong(df, kolom):
+    # Ganti string kosong atau whitespace dengan NaN
+    df[kolom] = df[kolom].replace(r'^\s*$', None, regex=True)
+    
+    # Hapus baris yang memilisl nilai NaN pada kolom tertentu
+    df_bersih = df.dropna(subset=[kolom])
+    
+    return df_bersih
+
+# Menggunakan cache untuk data preprocessing
+def preprocessing(df_SL):
+    df_sl = hapus_baris_kosong(df_sl, "Nama Barang")
+    return df_sl
+
+#Preprocessing Data
+df_sl = preprocessing(df_SL)
+
+def plot_piechart(df_sl):
+    df_sl = df_sl[df_sl['Nama Barang'].notna()]
     
     # Hitung jumlah masing-masing barang
-    count_df = df_PI['Nama Barang'].value_counts().reset_index()
+    count_df = df_sl['Nama Barang'].value_counts().reset_index()
     count_df.columns = ['Nama Barang', 'Jumlah']
 
     # Buat pie chart dengan Plotly
@@ -68,13 +87,11 @@ def main():
 
     # Menampilkan Pie Chart dan Bar Chart
     st.subheader("Total Barang Terjual")
-    if 'Nama Barang' in df_PI.columns:
-        fig1 = plot_piechart(df_PI)
-        st.plotly_chart(fig1)
-    else:
-        st.warning("Kolom 'Nama Barang' tidak ditemukan dalam data.")
+    fig1 = plot_piechart(df_sl)
+    st.plotly_chart(fig1)
     
 if __name__ == "__main__":
     main()
+
 
 
