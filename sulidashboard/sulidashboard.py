@@ -46,10 +46,7 @@ def get_data():
 df_PI = get_data()
 
 st.write(df_PI.columns)
-if 'Nama_Barang' in df_PI.columns:
-    st.write(df_PI['Nama_Barang', 'Quantity'])
-else:
-    st.write("Kolom 'Nama_Barang' tidak ditemukan.")
+
 #Data Preprocessing
 def hapus_baris_kosong(df, kolom):
     # Ganti string kosong atau whitespace dengan NaN
@@ -128,11 +125,12 @@ def main():
     """### **Data Publikasi Internasional**"""
 
     # Menampilkan Pie Chart dan Bar Chart
-    fig = plot_piechart(df_pi)
-    st.plotchart(fig)
+    fig1 = plot_piechart(df_pi)
+    st.plotchart(fig1)
     
 if __name__ == "__main__":
     main()
+
 
 
 
