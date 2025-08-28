@@ -66,11 +66,15 @@ def main():
     """### **Data Publikasi Internasional**"""
 
     # Menampilkan Pie Chart dan Bar Chart
-    fig1 = plot_piechart(df_PI)
-    st.plotly_chart(fig1)
+    if 'Nama_Barang' in df_PI.columns:
+        fig1 = plot_piechart(df_PI)
+        st.plotly_chart(fig1)
+    else:
+        st.warning("Kolom 'Nama_Barang' tidak ditemukan dalam data.")
     
 if __name__ == "__main__":
     main()
+
 
 
 
