@@ -117,124 +117,7 @@ def plot_piechart(df):
     # Atur posisi teks label di luar batang
     fig.update_traces(textinfo='label+value+percent', textposition='inside')
     return fig
-"""
-# Fungsi pie_chart yang sudah Anda buat
-def pie_chart(df_pi):
-    # Group by 'JENIS' and 'STATUS', then count the occurrences
-    jenis_status_counts = df_pi.groupby(['JENJANG PENDIDIKAN DITEMPUH', 'STATUS'])['NAMA SDM IPTEK'].count().reset_index(name='Count')
 
-    # Create a list of unique statuses
-    statuses = jenis_status_counts['STATUS'].unique()
-
-    # Create a figure with the hole for the donut chart
-    fig = px.pie(hole=0.3)  # Set the hole property here
-
-    # Add traces for each status
-    for status in statuses:
-        filtered_data = jenis_status_counts[jenis_status_counts['STATUS'] == status]
-        fig.add_trace(px.pie(filtered_data, values='Count', names='JENJANG PENDIDIKAN DITEMPUH', hole=0.3).data[0])
-
-    # Add trace for all data
-    all_data = df_pi.groupby('JENJANG PENDIDIKAN DITEMPUH')['NAMA SDM IPTEK'].count().reset_index(name='Count')
-    fig.add_trace(px.pie(all_data, values='Count', names='JENJANG PENDIDIKAN DITEMPUH', hole=0.3).data[0])
-    fig.update_traces(textinfo='label+value+percent', textposition='inside')
-
-    # Update layout to include dropdown (remove 'hole' from here)
-    fig.update_layout(
-        updatemenus=[
-            {
-                "buttons": [
-                    {
-                        "label": "All",
-                        "method": "update",
-                        "args": [{"visible": [True] + [False]*len(statuses)},
-                                {"title": "Jumlah S2/S3 per Status - All"}]
-                    }
-                ] + [
-                    {
-                        "label": status,
-                        "method": "update",
-                        "args": [{"visible": [False] + [status == s for s in statuses]},
-                                {"title": f"Jumlah S2/S3 per Status - {status}"}]
-                    }
-                    for status in statuses
-                ],
-                "direction": "down",
-                "showactive": True,
-                "x": 0.95,  # Position x
-                "y": 0.98,  # Position y
-                "xanchor": "right",
-                "yanchor": "top"
-            }
-        ]
-    )
-
-    return fig
-"""
-
-"""
-def bar_chart(df_pi):
-    # Group by 'JENIS' and count the occurrences
-    jenis_counts = df_pi.groupby('JENJANG PENDIDIKAN DITEMPUH')['NAMA SDM IPTEK'].count().reset_index(name='Count')
-
-    # Create the bar chart using Plotly Express with color and text labels
-    fig = px.bar(jenis_counts, x='JENJANG PENDIDIKAN DITEMPUH', y='Count',
-                 labels={'JENJANG PENDIDIKAN DITEMPUH': 'Jenjang Pendidikan', 'Count': 'Jumlah'},
-                 color='JENJANG PENDIDIKAN DITEMPUH', text='Count')  # Menambahkan parameter text untuk label
-
-    # Atur posisi teks label di luar batang
-    fig.update_traces(textposition='outside')
-
-    return fig    
-"""
-"""
-def plot_barchart(df, col):
-    # Ganti string kosong atau whitespace dengan NaN
-    df[col] = df[col].replace(r'^\s*$', None, regex=True)
-    # Ganti nilai null dengan 'Unknown'
-    df[col] = df[col].fillna('Unknown')
-
-    # Hitung jumlah masing-masing kelompok
-    count_df = df[col].value_counts().reset_index()
-    count_df.columns = [col, 'Jumlah']
-    # Urutkan dari besar ke kecil
-    count_df = count_df.sort_values(by='Jumlah', ascending=True)
-
-    # Buat bar chart dengan Plotly
-    fig = px.bar(count_df, x='Jumlah', y=col, color='Jumlah',
-                 color_continuous_scale='Blues', text='Jumlah')
-
-    # Atur posisi teks label di luar batang
-    fig.update_traces(textposition='outside')
-
-    return fig
-"""
-"""
-def plot_piechart(df):
-    # Hitung jumlah masing-masing kategori reputasi
-    count_df = df['JENJANG PENDIDIKAN DITEMPUH'].value_counts().reset_index()
-    count_df.columns = ['JENJANG PENDIDIKAN DITEMPUH', 'Jumlah']
-
-    # Buat pie chart dengan Plotly
-    fig = px.pie(count_df, names='JENJANG PENDIDIKAN DITEMPUH', values='Jumlah', hole=0.3)
-
-    # Atur posisi teks label di luar batang
-    fig.update_traces(textinfo='label+value+percent', textposition='inside')
-    return fig
-"""
-"""
-def plot_piechart(status):
-    # Hitung jumlah masing-masing kategori reputasi
-    count_status = status['STATUS'].value_counts().reset_index()
-    count_status.columns = ['STATUS', 'Jumlah']
-
-    # Buat pie chart dengan Plotly
-    fig = px.pie(count_status, names='STATUS', values='Jumlah', hole=0.3)
-
-     # Atur posisi teks label di luar batang
-    fig.update_traces(textinfo='label+value+percent', textposition='inside')
-    return fig
-"""
 
 # Streamlit App
 def main():
@@ -242,10 +125,8 @@ def main():
     st.dataframe(df_pi)
 
     # Menampilkan Pie Chart dan Bar Chart
-    fig_pie = pie_chart(df_pi)
-   
+    fig = plot_piechart(df_pi)
+    st.plotchart(fig)
+    
 if __name__ == "__main__":
     main()
-
-
-
