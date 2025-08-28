@@ -68,7 +68,7 @@ df_sl = preprocessing(df_SL)
 
 def pie_jumlahbarang(df_sl):
     # Group by 'JENIS' and count the occurrences
-    jenis_counts = df_ki.groupby('Nama Barang')['Quantity'].count().reset_index(name='Count')
+    jenis_counts = df_sl.groupby('Nama Barang')['Quantity'].count().reset_index(name='Count')
 
     # Create the bar chart using Plotly Express with color and text labels
     fig = px.pie(jenis_counts, x='Nama Barang', y='Count',
@@ -82,7 +82,7 @@ def pie_jumlahbarang(df_sl):
 
 def bar_jumlahbarang(df_sl):
     # Group by 'JENIS' and count the occurrences
-    jenis_counts = df_ki.groupby('Nama Barang')['Quantity'].count().reset_index(name='Count')
+    jenis_counts = df_sl.groupby('Nama Barang')['Quantity'].count().reset_index(name='Count')
 
     # Create the bar chart using Plotly Express with color and text labels
     fig = px.bar(jenis_counts, x='Nama Barang', y='Count',
@@ -128,6 +128,7 @@ def main():
     
 if __name__ == "__main__":
     main()
+
 
 
 
