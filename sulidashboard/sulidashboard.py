@@ -48,6 +48,8 @@ st.write(df_PI.columns)
 
 st.write(df_PI.columns.tolist())
 def plot_piechart(df_PI):
+    df_PI = df_PI[df_PI['Nama Barang'].notna()]
+    
     # Hitung jumlah masing-masing barang
     count_df = df_PI['Nama Barang'].value_counts().reset_index()
     count_df.columns = ['Nama Barang', 'Jumlah']
@@ -65,6 +67,7 @@ def main():
     """### **Data Publikasi Internasional**"""
 
     # Menampilkan Pie Chart dan Bar Chart
+    st.subheader("Total Barang Terjual")
     if 'Nama Barang' in df_PI.columns:
         fig1 = plot_piechart(df_PI)
         st.plotly_chart(fig1)
@@ -73,4 +76,5 @@ def main():
     
 if __name__ == "__main__":
     main()
+
 
