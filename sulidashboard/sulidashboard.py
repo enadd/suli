@@ -119,7 +119,7 @@ def main():
     fig2 = bar_jumlahbarang(df_sl)
 
     st.markdown(
-    f"<h2>Omset bulan ini: Rp{total:,.0f}</h2>",
+    f"<h2>Omset bulan ini: Rp{total_sales(df_sl):,.0f}</h2>",
     unsafe_allow_html=True
     )
              
@@ -133,6 +133,7 @@ def main():
     
 if __name__ == "__main__":
     main()
+
 
 
 
