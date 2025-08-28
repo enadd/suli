@@ -47,10 +47,10 @@ df_PI = get_data()
 
 st.write(df_PI.columns)
 
-st.write(df_pi.columns.tolist())
+st.write(df_PI.columns.tolist())
 def plot_piechart(df_PI):
     # Hitung jumlah masing-masing barang
-    count_df = df_pi['Nama_Barang'].value_counts().reset_index()
+    count_df = df_PI['Nama_Barang'].value_counts().reset_index()
     count_df.columns = ['Nama_Barang', 'Jumlah']
 
     # Buat pie chart dengan Plotly
@@ -71,6 +71,7 @@ def main():
     
 if __name__ == "__main__":
     main()
+
 
 
 
