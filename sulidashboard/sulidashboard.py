@@ -60,8 +60,8 @@ def hapus_baris_kosong(df, kolom):
 
 # Menggunakan cache untuk data preprocessing
 def preprocessing(df_SL):
-    df_sl = hapus_baris_kosong(df_sl, "Nama Barang")
-    return df_sl
+    df_suli = hapus_baris_kosong(df_sl, "Nama Barang")
+    return df_suli
 
 #Preprocessing Data
 df_sl = preprocessing(df_SL)
@@ -92,6 +92,7 @@ def main():
     
 if __name__ == "__main__":
     main()
+
 
 
 
