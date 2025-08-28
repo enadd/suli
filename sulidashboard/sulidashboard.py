@@ -9,7 +9,6 @@ from google.oauth2.service_account import Credentials
 import io
 from IPython.core.display import HTML
 import sys
-from wordcloud import WordCloud
 import matplotlib.pyplot as plt
 from streamlit_autorefresh import st_autorefresh
 sys.stdout.reconfigure(encoding='utf-8')
@@ -50,11 +49,11 @@ st.write(df_PI.columns)
 st.write(df_PI.columns.tolist())
 def plot_piechart(df_PI):
     # Hitung jumlah masing-masing barang
-    count_df = df_PI['Nama_Barang'].value_counts().reset_index()
-    count_df.columns = ['Nama_Barang', 'Jumlah']
+    count_df = df_PI['Nama Barang'].value_counts().reset_index()
+    count_df.columns = ['Nama Barang', 'Jumlah']
 
     # Buat pie chart dengan Plotly
-    fig = px.pie(count_df, names='Nama_Barang', values='Jumlah', hole=0.3)
+    fig = px.pie(count_df, names='Nama Barang', values='Jumlah', hole=0.3)
 
     # Atur posisi teks label di luar batang
     fig.update_traces(textinfo='label+value+percent', textposition='inside')
@@ -74,10 +73,3 @@ def main():
     
 if __name__ == "__main__":
     main()
-
-
-
-
-
-
-
