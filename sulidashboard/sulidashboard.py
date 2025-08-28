@@ -277,9 +277,9 @@ def main():
     st.dataframe(df_pi)
 
     # Menampilkan Pie Chart dan Bar Chart
-    
     fig_pie = pie_chart(df_pi)
    
 if __name__ == "__main__":
     main()
+
 
