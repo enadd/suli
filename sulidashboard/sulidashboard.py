@@ -68,10 +68,10 @@ df_sl = preprocessing(df_SL)
 
 def pie_jumlahbarang(df_sl):
     # Group by 'JENIS' and count the occurrences
-    jenis_counts = df_sl.groupby('Nama Barang')['Quantity'].count().reset_index(name='Count')
+    quantity_counts = df_sl.groupby('Nama Barang')['Quantity'].count().reset_index(name='Count')
 
     # Create the bar chart using Plotly Express with color and text labels
-    fig = px.pie(count_df, names='Nama Barang', values='Jumlah', hole=0.3)
+    fig = px.pie(quantity_counts, names='Nama Barang', values='Jumlah', hole=0.3)
                 
     # Atur posisi teks label di luar batang
     fig.update_traces(textinfo='label+value+percent', textposition='inside')
@@ -80,10 +80,10 @@ def pie_jumlahbarang(df_sl):
 
 def bar_jumlahbarang(df_sl):
     # Group by 'JENIS' and count the occurrences
-    jenis_counts = df_sl.groupby('Nama Barang')['Quantity'].count().reset_index(name='Count')
+    quantity_counts = df_sl.groupby('Nama Barang')['Quantity'].count().reset_index(name='Count')
 
     # Create the bar chart using Plotly Express with color and text labels
-    fig = px.bar(jenis_counts, x='Nama Barang', y='Count',
+    fig = px.bar(quantity_counts, x='Nama Barang', y='Count',
                  labels={'Nama Barang': 'Nama Barang', 'Count': 'Jumlah'},
                  color='Nama Barang', text='Count')  # Menambahkan parameter text untuk label
                 
@@ -126,6 +126,7 @@ def main():
     
 if __name__ == "__main__":
     main()
+
 
 
 
