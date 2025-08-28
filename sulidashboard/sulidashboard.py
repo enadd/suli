@@ -19,7 +19,7 @@ st.set_page_config(layout="wide")
 st.title('Dashboard Distributor Suli 5 Tangerang Selatan')
 # Refresh page every 60 seconds
 
-@st.cache_data
+@st.cache_data(ttl=10)
 def get_data():
     # Tentukan scope untuk mengakses Google Sheets dan Google Drive
     scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
@@ -133,6 +133,7 @@ def main():
     
 if __name__ == "__main__":
     main()
+
 
 
 
