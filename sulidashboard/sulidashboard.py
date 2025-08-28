@@ -122,7 +122,6 @@ def plot_piechart(df):
 # Streamlit App
 def main():
     """### **Data Publikasi Internasional**"""
-    st.dataframe(df_pi)
 
     # Menampilkan Pie Chart dan Bar Chart
     fig = plot_piechart(df_pi)
@@ -130,3 +129,4 @@ def main():
     
 if __name__ == "__main__":
     main()
+
