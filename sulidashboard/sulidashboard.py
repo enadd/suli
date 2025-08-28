@@ -106,9 +106,9 @@ def preprocessing(df_PI):
 #Preprocessing Data
 df_pi = preprocessing(df_PI)
 
-def plot_piechart(df):
+def plot_piechart(df_pi):
     # Hitung jumlah masing-masing barang
-    count_df = df['Nama_Barang'].value_counts().reset_index()
+    count_df = df_pi['Nama_Barang'].value_counts().reset_index()
     count_df.columns = ['Nama_Barang', 'Quantity']
 
     # Buat pie chart dengan Plotly
@@ -129,4 +129,5 @@ def main():
     
 if __name__ == "__main__":
     main()
+
 
