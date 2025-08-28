@@ -67,6 +67,12 @@ def preprocessing(df_SL):
 df_sl = preprocessing(df_SL)
 
 def pie_jumlahbarang(df_sl):
+    # Konversi kolom Quantity ke numerik, paksa error jadi NaN
+    df_sl['Quantity'] = pd.to_numeric(df_sl['Quantity'], errors='coerce')
+
+    # Hapus baris yang Quantity-nya kosong atau bukan angka
+    df_sl = df_sl.dropna(subset=['Quantity'])
+    
     # Group by 'JENIS' and count the occurrences
     quantity_counts = df_sl.groupby('Nama Barang')['Quantity'].sum().reset_index(name='Count')
 
@@ -79,6 +85,12 @@ def pie_jumlahbarang(df_sl):
     return fig
 
 def bar_jumlahbarang(df_sl):
+    # Konversi kolom Quantity ke numerik, paksa error jadi NaN
+    df_sl['Quantity'] = pd.to_numeric(df_sl['Quantity'], errors='coerce')
+
+    # Hapus baris yang Quantity-nya kosong atau bukan angka
+    df_sl = df_sl.dropna(subset=['Quantity'])
+    
     # Group by 'JENIS' and count the occurrences
     quantity_counts = df_sl.groupby('Nama Barang')['Quantity'].sum().reset_index(name='Count')
 
@@ -109,16 +121,4 @@ def main():
     
 if __name__ == "__main__":
     main()
-
-
-
-
-
-
-
-
-
-
-
-
 
