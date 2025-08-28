@@ -92,8 +92,8 @@ def preprocessing(df_PI):
     df_pi = formatting_data(df_PI)
   # df_pi = rename_columns(df_pi)
     df_pi = drop_data(df_pi)
-    df_pi = hapus_baris_kosong(df_pi, "In_Id")
-    df_pi = hapus_baris_kosong(df_pi, "Tanggal_Pengiriman")
+    #df_pi = hapus_baris_kosong(df_pi, "In_Id")
+    #df_pi = hapus_baris_kosong(df_pi, "Tanggal_Pengiriman")
   #  df_pi = hapus_baris_kosong(df_pi, "JENJANG PENDIDIKAN DITEMPUH")
   #  df_pi = hapus_baris_kosong(df_pi, "STATUS")
     #df_pi['Periode Input'] = df_pi['Periode Input'].apply(convert_month)
@@ -347,6 +347,7 @@ def main():
     
 if __name__ == "__main__":
     main()
+
 
 
 
