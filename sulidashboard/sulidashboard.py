@@ -66,6 +66,9 @@ def preprocessing(df_SL):
 #Preprocessing Data
 df_sl = preprocessing(df_SL)
 
+def tagihan(df_sl):
+    return df_sl[['Nama Customer', 'Omset']]
+
 def total_sales(df_sl):
     df_sl['Omset'] = df_sl['Omset'].str.replace('Rp', '', regex=False)
     df_sl['Omset'] = df_sl['Omset'].str.replace(',', '', regex=False)
@@ -115,9 +118,13 @@ def bar_jumlahbarang(df_sl):
 def main():
     """### **Data Publikasi Internasional**"""
 
+    df1 = tagihan(df_sl)
     fig1 = pie_jumlahbarang(df_sl)
     fig2 = bar_jumlahbarang(df_sl)
 
+    st.subheader("Tagihan Customer")
+    st.dataframe(df1)
+    
     st.markdown(
     f"<h2>Omset bulan ini: Rp{total_sales(df_sl):,.0f}</h2>",
     unsafe_allow_html=True
@@ -133,3 +140,4 @@ def main():
     
 if __name__ == "__main__":
     main()
+
