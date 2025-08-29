@@ -75,10 +75,12 @@ def tagihan(df_sl):
     return tagihan_counts
 
 def total_sales(df_sl):
+    '''
     df_sl['Omset'] = df_sl['Omset'].str.replace('Rp', '', regex=False)
     df_sl['Omset'] = df_sl['Omset'].str.replace(',', '', regex=False)
     df_sl['Omset'] = pd.to_numeric(df_sl['Omset'], errors='coerce')
     df_sl = df_sl.dropna(subset=['Omset'])
+    '''
     return df_sl['Omset'].sum()
 
 def pie_jumlahbarang(df_sl):
@@ -145,6 +147,7 @@ def main():
     
 if __name__ == "__main__":
     main()
+
 
 
 
