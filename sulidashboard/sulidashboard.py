@@ -129,7 +129,7 @@ def main():
     
     st.subheader("Tagihan Customer")
     st.dataframe(df1)
-    st.write(tagihan_counts.dtypes)
+    
     st.markdown(
     f"<h2>Omset bulan ini: Rp{total_sales(df_sl):,.0f}</h2>",
     unsafe_allow_html=True
@@ -145,6 +145,7 @@ def main():
     
 if __name__ == "__main__":
     main()
+
 
 
 
