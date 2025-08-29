@@ -74,7 +74,7 @@ def tagihan(df_sl):
     tagihan_counts = df_sl.groupby('Nama Customer')['Omset'].sum().reset_index(name='Count')
     tagihan_counts['Omset'] = tagihan_counts['Omset'].apply(lambda x: f"Rp{x:,.0f}")
     return tagihan_counts
-
+st.write(tagihan_counts.dtypes)
 def total_sales(df_sl):
     df_sl['Omset'] = df_sl['Omset'].str.replace('Rp', '', regex=False)
     df_sl['Omset'] = df_sl['Omset'].str.replace(',', '', regex=False)
@@ -146,6 +146,7 @@ def main():
     
 if __name__ == "__main__":
     main()
+
 
 
 
