@@ -71,7 +71,8 @@ def tagihan(df_sl):
     df_sl['Omset'] = df_sl['Omset'].str.replace(',', '', regex=False)
     df_sl['Omset'] = pd.to_numeric(df_sl['Omset'], errors='coerce')
     df_sl = df_sl.dropna(subset=['Omset'])
-    total_tagihan = df_sl.groupby('Nama Customer')['Omset'].sum().reset_index(name='Count')
+    tagihan_counts = df_sl.groupby('Nama Customer')['Omset'].sum().reset_index(name='Count')
+    total tagihan = Omset bulan ini:  Rp{total_sales(df_sl):,.0f}
     return total_tagihan
 
 def total_sales(df_sl):
@@ -145,6 +146,7 @@ def main():
     
 if __name__ == "__main__":
     main()
+
 
 
 
