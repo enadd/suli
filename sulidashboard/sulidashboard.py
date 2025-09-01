@@ -165,6 +165,7 @@ def main():
 
     df1 = tagihan(df_sl)
     df2 = jumlah_barang_per_bulan(df_sl)
+    df3 = sales_perbulan(df_sl)
     fig1 = pie_jumlahbarang(df_sl)
     fig2 = bar_jumlahbarang(df_sl)
 
@@ -178,6 +179,9 @@ def main():
 
     st.subheader("Jumlah Barang per Bulan")
     st.dataframe(df2)
+
+    st.subheader("Sales per Bulan")
+    st.dataframe(df3)
         
     st.subheader("Barang Terjual")
     col1, col2 = st.columns(2)
@@ -189,6 +193,7 @@ def main():
     
 if __name__ == "__main__":
     main()
+
 
 
 
