@@ -92,6 +92,7 @@ def total_sales(df_sl):
         return 0
 
 def jumlah_barang(df_sl):
+    df_sl['Tanggal Order'] = pd.to_datetime(df_sl['Tanggal Order'], errors='coerce')
     filter_perbulan = df_sl[(df_sl['Tanggal Order'].dt.month == bulan) & (df_sl['Tanggal Order'].dt.year == tahun)]
 
     hasil = df_sl.groupby('Nama Barang')['Quantity'].sum().reset_index()
@@ -165,6 +166,7 @@ def main():
     
 if __name__ == "__main__":
     main()
+
 
 
 
