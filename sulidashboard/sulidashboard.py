@@ -80,7 +80,7 @@ def tagihan(df_sl):
 def total_sales(df_sl):
     if df_sl['Tanggal Order'] == "September":
         df_sl['Omset'].sum()
-    else ("Belum ada bulan September")
+    else: ("Belum ada bulan September")
     
     return total_sales(df_sl)
 
@@ -148,6 +148,7 @@ def main():
     
 if __name__ == "__main__":
     main()
+
 
 
 
