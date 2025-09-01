@@ -94,7 +94,7 @@ def total_sales(df_sl):
 
 def jumlah_barang_per_bulan(df_sl):
     df_sl['Tanggal Order'] = pd.to_datetime(df_sl['Tanggal Order'], errors='coerce')
-    df['Quantity'] = pd.to_numeric(df['Quantity'], errors='coerce')
+    df_sl['Quantity'] = pd.to_numeric(df_sl['Quantity'], errors='coerce')
 
     # Tambahkan kolom Bulan (dalam bentuk angka)
     df_sl['Bulan'] = df_sl['Tanggal Order'].dt.month
@@ -179,6 +179,7 @@ def main():
     
 if __name__ == "__main__":
     main()
+
 
 
 
