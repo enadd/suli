@@ -144,7 +144,7 @@ def main():
     """### **Data Publikasi Internasional**"""
 
     df1 = tagihan(df_sl)
-    df2 = jumlah_barang_per_bulan(bulan, tahun)
+    df2 = jumlah_barang_per_bulan(df_sl)
     fig1 = pie_jumlahbarang(df_sl)
     fig2 = bar_jumlahbarang(df_sl)
     
@@ -169,6 +169,7 @@ def main():
     
 if __name__ == "__main__":
     main()
+
 
 
 
