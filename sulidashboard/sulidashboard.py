@@ -90,7 +90,7 @@ def total_sales(df_sl):
         total = omset_numeric.sum()
         return total
     else:
-        return "Belum ada bulan September"
+        return 0
 
 def pie_jumlahbarang(df_sl):
     # Konversi kolom Quantity ke numerik, paksa error jadi NaN
@@ -156,6 +156,7 @@ def main():
     
 if __name__ == "__main__":
     main()
+
 
 
 
