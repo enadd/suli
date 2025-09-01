@@ -98,7 +98,7 @@ def jumlah_barang_per_bulan(df_sl):
     # Tambahkan kolom Bulan (dalam bentuk angka)
     df_sl['Bulan'] = df_sl['Tanggal Order'].dt.month
 
-    grouped = df.groupby(['Nama Barang', 'Bulan'])['Quantity'].sum()
+    grouped = df_sl.groupby(['Nama Barang', 'Bulan'])['Quantity'].sum()
     
     # Ubah Series multi-index jadi DataFrame dengan kolom Bulan
     hasil = grouped.unstack(fill_value=0)
@@ -178,6 +178,7 @@ def main():
     
 if __name__ == "__main__":
     main()
+
 
 
 
