@@ -86,8 +86,7 @@ def total_sales(df_sl):
 
     if not september_data.empty:
         # Hitung total omset (hilangkan 'Rp' dan koma agar bisa dijumlahkan)
-        omset_numeric = september_data['Omset'].str.replace('Rp', '').str.replace(',', '').astype(float)
-        total = omset_numeric.sum()
+        total = september_data.sum()
         return total
     else:
         return 0
@@ -156,6 +155,7 @@ def main():
     
 if __name__ == "__main__":
     main()
+
 
 
 
