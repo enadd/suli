@@ -91,16 +91,28 @@ def total_sales(df_sl):
     else:
         return 0
 
-def jumlah_barang_per_bulan(df_sl, bulan, tahun):
+def jumlah_barang_per_bulan(df_sl):
     df_sl['Tanggal Order'] = pd.to_datetime(df_sl['Tanggal Order'], errors='coerce')
 
-    jumlah_barang = df_sl[(df_sl['Tanggal Order'].dt.month == bulan) & (df_sl['Tanggal Order'].dt.year == tahun)]
+    # Tambahkan kolom Bulan (dalam bentuk angka)
+    df_sl['Bulan'] = df_sl['Tanggal Order'].dt.month
 
-    hasil = jumlah_barang.groupby('Nama Barang')['Quantity'].sum().reset_index()
+    # Buat pivot table: Nama Barang vs Bulan
+    hasil = pd.pivot_table(
+        df,
+        values='Quantity',
+        index='Nama Barang',
+        columns='Bulan',
+        aggfunc='sum',
+        fill_value=0
+    )
+
+    # Ganti nama kolom angka bulan jadi nama bulan
+    hasil.columns = [calendar.month_name[i] for i in hasil.columns]
+
+    # Reset index agar "Nama Barang" jadi kolom biasa
+    hasil = hasil.reset_index()
     return hasil
-
-bulan = st.selectbox("Pilih bulan", list(range(1, 13)), format_func=lambda x: f"{x:02d}")
-tahun = st.number_input("Pilih tahun", min_value=2020, max_value=2030, value=2025)
 
 def pie_jumlahbarang(df_sl):
     # Konversi kolom Quantity ke numerik, paksa error jadi NaN
@@ -145,7 +157,7 @@ def main():
     """### **Data Publikasi Internasional**"""
 
     df1 = tagihan(df_sl)
-    df2 = jumlah_barang_per_bulan(df_sl, bulan, tahun)
+    df2 = jumlah_barang_per_bulan(df_sl)
     fig1 = pie_jumlahbarang(df_sl)
     fig2 = bar_jumlahbarang(df_sl)
     
@@ -170,30 +182,3 @@ def main():
     
 if __name__ == "__main__":
     main()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
