@@ -98,15 +98,10 @@ def jumlah_barang_per_bulan(df_sl):
     # Tambahkan kolom Bulan (dalam bentuk angka)
     df_sl['Bulan'] = df_sl['Tanggal Order'].dt.month
 
-    # Buat pivot table: Nama Barang vs Bulan
-    hasil = pd.pivot_table(
-        df_sl,
-        values='Quantity',
-        index='Nama Barang',
-        columns='Bulan',
-        aggfunc='sum',
-        fill_value=0
-    )
+    grouped = df.groupby(['Nama Barang', 'Bulan'])['Quantity'].sum()
+    
+    # Ubah Series multi-index jadi DataFrame dengan kolom Bulan
+    hasil = grouped.unstack(fill_value=0)
 
     # Ganti nama kolom angka bulan jadi nama bulan
     hasil.columns = [calendar.month_name[i] for i in hasil.columns]
@@ -183,5 +178,6 @@ def main():
     
 if __name__ == "__main__":
     main()
+
 
 
