@@ -91,6 +91,12 @@ def total_sales(df_sl):
     else:
         return 0
 
+def jumlah_barang(df_sl):
+    filter_perbulan = df_sl[(df_sl['Tanggal Order'].dt.month == bulan) & (df_sl['Tanggal Order'].dt.year == tahun)]
+
+    hasil = df_sl.groupby('Nama Barang')['Quantity'].sum().reset_index()
+    return hasil
+
 def pie_jumlahbarang(df_sl):
     # Konversi kolom Quantity ke numerik, paksa error jadi NaN
     df_sl['Quantity'] = pd.to_numeric(df_sl['Quantity'], errors='coerce')
@@ -134,11 +140,15 @@ def main():
     """### **Data Publikasi Internasional**"""
 
     df1 = tagihan(df_sl)
+    df2 = jumlah_barang(df_sl)
     fig1 = pie_jumlahbarang(df_sl)
     fig2 = bar_jumlahbarang(df_sl)
     
     st.subheader("Tagihan Customer")
     st.dataframe(df1)
+
+    st.subheader("Jumlah Barang per Bulan")
+    st.dataframe(df2)
     
     st.markdown(
     f"<h2>Omset bulan ini: Rp{total_sales(df_sl):,.0f}</h2>",
@@ -155,6 +165,7 @@ def main():
     
 if __name__ == "__main__":
     main()
+
 
 
 
