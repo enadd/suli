@@ -115,7 +115,7 @@ def sales_perbulan(df_sl):
     df_sl['Bulan'] = df_sl['Tanggal Order'].dt.month
 
     sales_sum = df_sl.groupby('Bulan')['Omset'].sum()
-    hasil = sales_sum.unstack(fill_value=0)
+    #hasil = sales_sum.unstack(fill_value=0)
     hasil.columns = [calendar.month_name[i] for i in hasil.columns]
     hasil = hasil.reset_index()
     return hasil
@@ -193,6 +193,7 @@ def main():
     
 if __name__ == "__main__":
     main()
+
 
 
 
