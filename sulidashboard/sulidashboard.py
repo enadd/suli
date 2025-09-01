@@ -115,11 +115,10 @@ def sales_perbulan(df_sl):
     df_sl['Bulan'] = df_sl['Tanggal Order'].dt.month
 
     sales_sum = df_sl.groupby('Bulan')['Omset'].sum()
-    #hasil = sales_sum.unstack(fill_value=0)
-    hasil.columns = [calendar.month_name[i] for i in hasil.columns]
-    hasil = hasil.reset_index()
+    hasil = sales_sum.reset_index()
+    hasil['Bulan'] = hasil['Bulan'].apply(lambda x: calendar.month_name[x])
+    
     return hasil
-
 
 def pie_jumlahbarang(df_sl):
     # Konversi kolom Quantity ke numerik, paksa error jadi NaN
@@ -193,12 +192,6 @@ def main():
     
 if __name__ == "__main__":
     main()
-
-
-
-
-
-
 
 
 
