@@ -99,7 +99,7 @@ def jumlah_barang_per_bulan(df_sl):
 
     # Buat pivot table: Nama Barang vs Bulan
     hasil = pd.pivot_table(
-        df,
+        df_sl,
         values='Quantity',
         index='Nama Barang',
         columns='Bulan',
@@ -182,3 +182,4 @@ def main():
     
 if __name__ == "__main__":
     main()
+
