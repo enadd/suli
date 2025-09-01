@@ -91,7 +91,7 @@ def total_sales(df_sl):
     else:
         return 0
 
-def jumlah_barang_per_bulan(df_sl):
+def jumlah_barang_per_bulan(df_sl, bulan, tahun):
     df_sl['Tanggal Order'] = pd.to_datetime(df_sl['Tanggal Order'], errors='coerce')
 
     jumlah_barang = df_sl[(df_sl['Tanggal Order'].dt.month == bulan) & (df_sl['Tanggal Order'].dt.year == tahun)]
@@ -170,6 +170,7 @@ def main():
     
 if __name__ == "__main__":
     main()
+
 
 
 
