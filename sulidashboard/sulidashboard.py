@@ -78,11 +78,19 @@ def tagihan(df_sl):
     return tagihan_counts
 
 def total_sales(df_sl):
-    if df_sl['Tanggal Order'] == "September":
-        df_sl['Omset'].sum()
-    else: ("Belum ada bulan September")
-    
-    return total_sales(df_sl)
+    # Pastikan kolom Tanggal Order dalam format datetime
+    df_sl['Tanggal Order'] = pd.to_datetime(df_sl['Tanggal Order'], errors='coerce')
+
+    # Filter data untuk bulan September
+    september_data = df_sl[df_sl['Tanggal Order'].dt.month == 9]
+
+    if not september_data.empty:
+        # Hitung total omset (hilangkan 'Rp' dan koma agar bisa dijumlahkan)
+        omset_numeric = september_data['Omset'].str.replace('Rp', '').str.replace(',', '').astype(float)
+        total = omset_numeric.sum()
+        return total
+    else:
+        return "Belum ada bulan September"
 
 def pie_jumlahbarang(df_sl):
     # Konversi kolom Quantity ke numerik, paksa error jadi NaN
@@ -148,6 +156,7 @@ def main():
     
 if __name__ == "__main__":
     main()
+
 
 
 
