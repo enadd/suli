@@ -93,6 +93,9 @@ def total_sales(df_sl):
 
 def jumlah_barang(df_sl):
     df_sl['Tanggal Order'] = pd.to_datetime(df_sl['Tanggal Order'], errors='coerce')
+    bulan = st.selectbox("Pilih bulan", list(range(1, 13)), format_func=lambda x: f"{x:02d}")
+    tahun = st.number_input("Pilih tahun", min_value=2020, max_value=2030, value=2025)
+
     filter_perbulan = df_sl[(df_sl['Tanggal Order'].dt.month == bulan) & (df_sl['Tanggal Order'].dt.year == tahun)]
 
     hasil = df_sl.groupby('Nama Barang')['Quantity'].sum().reset_index()
@@ -141,7 +144,7 @@ def main():
     """### **Data Publikasi Internasional**"""
 
     df1 = tagihan(df_sl)
-    df2 = jumlah_barang(df_sl)
+    df2 = jumlah_barang_per_bulan(df, bulan, tahun)
     fig1 = pie_jumlahbarang(df_sl)
     fig2 = bar_jumlahbarang(df_sl)
     
@@ -166,6 +169,7 @@ def main():
     
 if __name__ == "__main__":
     main()
+
 
 
 
