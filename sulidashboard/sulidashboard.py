@@ -86,7 +86,7 @@ def total_sales(df_sl):
 
     if not september_data.empty:
         # Hitung total omset (hilangkan 'Rp' dan koma agar bisa dijumlahkan)
-        total = df_sl['Omset'].sum()
+        total = september_data['Omset'].sum()
         return total
     else:
         return 0
@@ -155,6 +155,7 @@ def main():
     
 if __name__ == "__main__":
     main()
+
 
 
 
