@@ -124,10 +124,12 @@ def pie_jumlahbarang(df_sl):
     df_sl = df_sl.dropna(subset=['Quantity'])
     
     # Group by 'JENIS' and count the occurrences
-    quantity_counts = df_sl.groupby('Nama Barang')['Quantity'].sum().reset_index(name='Count')
+    quantity_counts = df_sl.groupby(['Nama Barang', 'Tanggal Order'])['Quantity'].sum().reset_index(name='Count')
+
+    hasil = quantity_counts.unstack(fill_value=0)
 
     # Create the bar chart using Plotly Express with color and text labels
-    fig = px.pie(quantity_counts, names='Nama Barang', values='Count', hole=0.3)
+    fig = px.pie(hasil, names='Nama Barang', values='Count', hole=0.3)
                 
     # Atur posisi teks label di luar batang
     fig.update_traces(textinfo='label+value+percent', textposition='inside')
@@ -188,6 +190,7 @@ def main():
     
 if __name__ == "__main__":
     main()
+
 
 
 
