@@ -119,15 +119,15 @@ def sales_perbulan(df_sl):
 def pie_jumlahbarang(df_sl):
     # Konversi kolom Quantity ke numerik, paksa error jadi NaN
     df_sl['Quantity'] = pd.to_numeric(df_sl['Quantity'], errors='coerce')
-
     # Hapus baris yang Quantity-nya kosong atau bukan angka
     df_sl = df_sl.dropna(subset=['Quantity'])
+    september_data = df_sl[df_sl['Tanggal Order'].dt.month == 9]
     
     # Group by 'JENIS' and count the occurrences
     quantity_counts = df_sl.groupby(['Nama Barang', 'Tanggal Order'])['Quantity'].sum().reset_index(name='Count')
-
     hasil = quantity_counts.unstack(fill_value=0)
-
+    hasil = hasil.reset_index()
+    
     # Create the bar chart using Plotly Express with color and text labels
     fig = px.pie(hasil, names='Nama Barang', values='Count', hole=0.3)
                 
@@ -190,6 +190,7 @@ def main():
     
 if __name__ == "__main__":
     main()
+
 
 
 
