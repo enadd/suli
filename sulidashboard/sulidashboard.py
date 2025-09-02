@@ -17,7 +17,7 @@ sys.stderr.reconfigure(encoding='utf-8')
 
 st_autorefresh(interval=60 * 1000)
 st.set_page_config(layout="wide")
-st.title('Dashboard Distributor Suli 5 Tangerang Selatan')
+st.title('Dashboard Distributor Suli 5 Tangerang Selatan 2025')
 # Refresh page every 60 seconds
 
 @st.cache_data(ttl=60)
@@ -188,6 +188,7 @@ def main():
     
 if __name__ == "__main__":
     main()
+
 
 
 
