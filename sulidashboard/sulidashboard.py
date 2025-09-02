@@ -87,7 +87,7 @@ def total_sales(df_sl):
         return total
     else:
         return 0
-'''
+
 def jumlah_barang_per_bulan(df_sl):
     df_sl['Tanggal Order'] = pd.to_datetime(df_sl['Tanggal Order'], errors='coerce')
     df_sl['Quantity'] = pd.to_numeric(df_sl['Quantity'], errors='coerce')
@@ -106,8 +106,7 @@ def jumlah_barang_per_bulan(df_sl):
     # Reset index agar "Nama Barang" jadi kolom biasa
     hasil = hasil.reset_index()
     return hasil
-'''   
-'''
+
 def sales_perbulan(df_sl):
     df_sl['Bulan'] = df_sl['Tanggal Order'].dt.month
 
@@ -116,7 +115,7 @@ def sales_perbulan(df_sl):
     hasil['Bulan'] = hasil['Bulan'].apply(lambda x: calendar.month_name[x])
     
     return hasil
-'''
+
 def pie_jumlahbarang(df_sl):
     # Konversi kolom Quantity ke numerik, paksa error jadi NaN
     df_sl['Quantity'] = pd.to_numeric(df_sl['Quantity'], errors='coerce')
@@ -160,8 +159,8 @@ def main():
     """### **Data Publikasi Internasional**"""
 
     df1 = tagihan(df_sl)
-    #df2 = jumlah_barang_per_bulan(df_sl)
-    #df3 = sales_perbulan(df_sl)
+    df2 = jumlah_barang_per_bulan(df_sl)
+    df3 = sales_perbulan(df_sl)
     fig1 = pie_jumlahbarang(df_sl)
     fig2 = bar_jumlahbarang(df_sl)
 
@@ -173,11 +172,11 @@ def main():
     st.subheader("Tagihan Customer")
     st.dataframe(df1)
 
-    st.subheader("Jumlah Barang per Bulan")
-    st.dataframe(df2)
+    #st.subheader("Jumlah Barang per Bulan")
+    #st.dataframe(df2)
 
-    st.subheader("Sales per Bulan")
-    st.dataframe(df3)
+    #st.subheader("Sales per Bulan")
+    #st.dataframe(df3)
         
     st.subheader("Barang Terjual")
     col1, col2 = st.columns(2)
@@ -189,6 +188,7 @@ def main():
     
 if __name__ == "__main__":
     main()
+
 
 
 
