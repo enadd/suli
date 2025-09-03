@@ -111,6 +111,7 @@ def jumlah_barang_per_bulan(df_sl):
                 
     # Atur posisi teks label di luar batang
     fig.update_traces(textposition='outside')
+    fig.update_layout(xaxis_title='Nama Barang', yaxis_title='Jumlah')
     return fig
 
 def sales_perbulan(df_sl):
@@ -194,3 +195,4 @@ def main():
     
 if __name__ == "__main__":
     main()
+
