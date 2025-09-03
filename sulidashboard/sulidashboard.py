@@ -100,16 +100,14 @@ def jumlah_barang_per_bulan(df_sl):
     # Ganti nama kolom angka bulan jadi nama bulan
     grouped.columns = [calendar.month_name[i] for i in grouped.columns]
 
-    grouped.T.plot(kind='bar', figsize=(12, 6))
-    plt.title('Jumlah Barang per Bulan (Per Barang)')
-    plt.xlabel('Bulan')
-    plt.ylabel('Jumlah Barang')
-    plt.xticks(rotation=45)
-    plt.legend(title='Nama Barang')
-    plt.tight_layout()
-    plt.grid(axis='y')
-    plt.show()
-    return grouped
+    # Create the bar chart using Plotly Express with color and text labels
+    fig = px.bar(quantity_counts, x='Nama Barang', y='Quantity',
+                 labels={'Quantity': 'Jumlah', 'Nama Barang': 'Nama Barang', 'Nama Bulan': 'Bulan'},
+                 color='Nama Barang', text='Quantity')  # Menambahkan parameter text untuk label
+                
+    # Atur posisi teks label di luar batang
+    fig.update_traces(textposition='outside')
+    return fix
 
 def sales_perbulan(df_sl):
     df_sl['Bulan'] = df_sl['Tanggal Order'].dt.month
@@ -192,6 +190,7 @@ def main():
     
 if __name__ == "__main__":
     main()
+
 
 
 
