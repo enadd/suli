@@ -63,6 +63,9 @@ def preprocessing(df_SL):
 #Preprocessing Data
 df_sl = preprocessing(df_SL)
 
+def format_rupiah(x):
+    return f"Rp{int(x):,.0F}"
+
 def tagihan(df_sl):
     df_sl['Omset'] = df_sl['Omset'].str.replace('Rp', '', regex=False)
     df_sl['Omset'] = df_sl['Omset'].str.replace(',', '', regex=False)
@@ -72,6 +75,7 @@ def tagihan(df_sl):
     
     df_sl = df_sl.dropna(subset=['Omset'])
     tagihan_counts = df_sl.groupby('Nama Customer')['Omset'].sum().reset_index(name='Count')
+    tagihan_counts = tagihan_counts.apply(format_rupiah)
     return tagihan_counts
 
 def total_sales(df_sl):
@@ -113,9 +117,6 @@ def jumlah_barang_per_bulan(df_sl):
     fig.update_traces(textposition='outside')
     fig.update_layout(xaxis_title='Nama Barang', yaxis_title='Jumlah')
     return fig
-
-def format_rupiah(x):
-    return f"Rp{int(x):,.0F}"
 
 def sales_perbulan(df_sl):
     #df_sl['Bulan'] = df_sl['Tanggal Order'].dt.month
@@ -197,6 +198,7 @@ def main():
     
 if __name__ == "__main__":
     main()
+
 
 
 
