@@ -118,10 +118,8 @@ def sales_perbulan(df_sl):
     df_sl['Bulan'] = df_sl['Tanggal Order'].dt.month
 
     sales_sum = df_sl.groupby('Bulan')['Omset'].sum()
-    hasil = sales_sum.reset_index()
-    hasil['Bulan'] = hasil['Bulan'].apply(lambda x: calendar.month_name[x])
     
-    return hasil
+    return sales_sum
 
 def pie_jumlahbarang(df_sl):
     # Konversi kolom Quantity ke numerik, paksa error jadi NaN
@@ -182,8 +180,8 @@ def main():
     st.subheader("Jumlah Barang per Bulan")
     st.plotly_chart(df2)
 
-    #st.subheader("Sales per Bulan")
-    #st.dataframe(df3)
+    st.subheader("Sales per Bulan")
+    st.dataframe(df3)
         
     st.subheader("Barang Terjual")
     col1, col2 = st.columns(2)
@@ -195,5 +193,6 @@ def main():
     
 if __name__ == "__main__":
     main()
+
 
 
