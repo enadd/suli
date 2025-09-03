@@ -75,7 +75,7 @@ def tagihan(df_sl):
     
     df_sl = df_sl.dropna(subset=['Omset'])
     tagihan_counts = df_sl.groupby('Nama Customer')['Omset'].sum().reset_index(name='Count')
-    tagihan_counts = tagihan_counts.apply(format_rupiah)
+    tagihan_counts['Count'] = tagihan_counts['Count'].apply(format_rupiah)
     return tagihan_counts
 
 def total_sales(df_sl):
@@ -198,6 +198,7 @@ def main():
     
 if __name__ == "__main__":
     main()
+
 
 
 
