@@ -95,17 +95,26 @@ def jumlah_barang_per_bulan(df_sl):
     # Tambahkan kolom Bulan (dalam bentuk angka)
     df_sl['Bulan'] = df_sl['Tanggal Order'].dt.month
     
-    grouped = df_sl.groupby(['Nama Barang', 'Bulan'])['Quantity'].sum()
-    
-    # Ubah Series multi-index jadi DataFrame dengan kolom Bulan
-    hasil = grouped.unstack(fill_value=0)
+    grouped = df_sl.groupby(['Nama Barang', 'Bulan'])['Quantity'].sum().unstack(fill_value=0)
 
     # Ganti nama kolom angka bulan jadi nama bulan
-    hasil.columns = [calendar.month_name[i] for i in hasil.columns]
+    grouped.columns = [calendar.month_name[i] for i in grouped.columns]
 
-    # Reset index agar "Nama Barang" jadi kolom biasa
-    hasil = hasil.reset_index()
-    return hasil
+    # Ubah jadi DataFrame untuk digunakan di px.bar
+    df_chart = grouped.reset_index()
+    df_chart.columns = ['Bulan', 'Jumlah']
+
+    # Plotly bar chart
+    fig = px.bar(df_chart, x='Bulan', y='Jumlah',
+                 labels={'Jumlah': 'Jumlah Barang'},
+                 text='Jumlah', color='Bulan')
+
+    fig.update_traces(textposition='outside')
+    fig.update_layout(title='Jumlah Barang per Bulan',
+                      xaxis_title='Bulan',
+                      yaxis_title='Jumlah Barang',
+                      showlegend=False)
+    return fig
 
 def sales_perbulan(df_sl):
     df_sl['Bulan'] = df_sl['Tanggal Order'].dt.month
@@ -188,6 +197,7 @@ def main():
     
 if __name__ == "__main__":
     main()
+
 
 
 
