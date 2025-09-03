@@ -172,8 +172,8 @@ def main():
     st.subheader("Tagihan Customer")
     st.dataframe(df1)
 
-    #st.subheader("Jumlah Barang per Bulan")
-    #st.dataframe(df2)
+    st.subheader("Jumlah Barang per Bulan")
+    st.dataframe(df2)
 
     #st.subheader("Sales per Bulan")
     #st.dataframe(df3)
@@ -188,6 +188,7 @@ def main():
     
 if __name__ == "__main__":
     main()
+
 
 
 
