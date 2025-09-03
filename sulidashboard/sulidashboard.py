@@ -115,7 +115,7 @@ def jumlah_barang_per_bulan(df_sl):
     return fig
 
 def format_rupiah(x):
-    return f"Rp{int(x),.0F}"
+    return f"Rp{int(x):,.0F}"
 
 def sales_perbulan(df_sl):
     #df_sl['Bulan'] = df_sl['Tanggal Order'].dt.month
@@ -197,6 +197,7 @@ def main():
     
 if __name__ == "__main__":
     main()
+
 
 
 
