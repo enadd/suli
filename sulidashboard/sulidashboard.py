@@ -74,7 +74,10 @@ def tagihan(df_sl):
     df_sl = df_sl[df_sl['Kategori'].isna() | (df_sl['Kategori'] != 'Sales')]
     
     df_sl = df_sl.dropna(subset=['Omset'])
-    tagihan_counts = df_sl.groupby('Nama Customer')['Omset'].sum().reset_index(name='Tagihan')
+    tagihan_counts = df_sl.groupby('Nama Customer').agg({
+        'Omset':'sum',
+        'Tanggal Order':'min'
+        }).reset_index(name='Tagihan')
     tagihan_counts['Tagihan'] = tagihan_counts['Tagihan'].apply(format_rupiah)
     return tagihan_counts['Nama Customer', 'Tanggal Order', 'Tagihan']
 
@@ -198,6 +201,7 @@ def main():
     
 if __name__ == "__main__":
     main()
+
 
 
 
