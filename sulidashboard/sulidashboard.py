@@ -78,7 +78,7 @@ def tagihan(df_sl):
         'Omset':'sum',
         'Tanggal Order':'min'
         }).reset_index()
-    tagihan_counts['Omset'] = tagihan_count.rename(columns={'Omset':'Tagihan'})
+    tagihan_counts['Omset'] = tagihan_counts.rename(columns={'Omset':'Tagihan'})
     tagihan_counts['Tagihan'] = tagihan_counts['Tagihan'].apply(format_rupiah)
     return tagihan_counts['Nama Customer', 'Tanggal Order', 'Tagihan']
 
@@ -202,6 +202,7 @@ def main():
     
 if __name__ == "__main__":
     main()
+
 
 
 
