@@ -181,7 +181,7 @@ def main():
     fig1 = pie_jumlahbarang(df_sl)
     fig2 = bar_jumlahbarang(df_sl)
 
-    col1, col2 = st.column(2)
+    col1, col2 = st.columns(2)
     with col1:
         st.markdown(
         f"<h2>Omset bulan ini: Rp{total_sales(df_sl):,.0f}</h2>",
@@ -212,21 +212,3 @@ def main():
     
 if __name__ == "__main__":
     main()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
