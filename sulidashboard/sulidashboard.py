@@ -66,6 +66,9 @@ df_sl = preprocessing(df_SL)
 def format_rupiah(x):
     return f"Rp{int(x):,.0F}"
 
+def total_customer (df_sl):
+    return df_sl['Nama Customer'].count()
+    
 def tagihan(df_sl):
     df_sl['Omset'] = df_sl['Omset'].str.replace('Rp', '', regex=False)
     df_sl['Omset'] = df_sl['Omset'].str.replace(',', '', regex=False)
@@ -178,10 +181,17 @@ def main():
     fig1 = pie_jumlahbarang(df_sl)
     fig2 = bar_jumlahbarang(df_sl)
 
-    st.markdown(
-    f"<h2>Omset bulan ini: Rp{total_sales(df_sl):,.0f}</h2>",
-    unsafe_allow_html=True
-    )
+    col1, col2 = st.column(2)
+    with col1:
+        st.markdown(
+        f"<h2>Omset bulan ini: Rp{total_sales(df_sl):,.0f}</h2>",
+        unsafe_allow_html=True
+        )
+    with col2:
+        st.markdown(
+        f"<h2>Total Customer bulan ini: {total_customer(df_sl)}</h2>",
+        unsafe_allow_html=True
+        )
     
     st.subheader("Tagihan Customer")
     st.dataframe(df1)
@@ -202,6 +212,7 @@ def main():
     
 if __name__ == "__main__":
     main()
+
 
 
 
