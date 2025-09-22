@@ -67,7 +67,7 @@ def format_rupiah(x):
     return f"Rp{int(x):,.0F}"
 
 def total_customer (df_sl):
-    return df_sl['Nama Customer'].count()
+    return df_sl.groupby['Nama Customer'].count()
     
 def tagihan(df_sl):
     df_sl['Omset'] = df_sl['Omset'].str.replace('Rp', '', regex=False)
@@ -212,4 +212,5 @@ def main():
     
 if __name__ == "__main__":
     main()
+
 
