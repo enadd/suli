@@ -184,12 +184,12 @@ def main():
     col1, col2 = st.columns(2)
     with col1:
         st.markdown(
-        f"<h2>Omset bulan ini: Rp{total_sales(df_sl):,.0f}</h2>",
+        f"<h3>Omset bulan ini: Rp{total_sales(df_sl):,.0f}</h3>",
         unsafe_allow_html=True
         )
     with col2:
         st.markdown(
-        f"<h2>Total Customer: {total_customer(df_sl)}</h2>",
+        f"<h3>Total Customer: {total_customer(df_sl)}</h3>",
         unsafe_allow_html=True
         )
     
@@ -212,6 +212,7 @@ def main():
     
 if __name__ == "__main__":
     main()
+
 
 
 
