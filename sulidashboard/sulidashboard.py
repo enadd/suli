@@ -90,7 +90,7 @@ def total_sales(df_sl):
     df_sl['Tanggal Order'] = pd.to_datetime(df_sl['Tanggal Order'], errors='coerce')
 
     # Filter data untuk bulan September
-    september_data = df_sl[df_sl['Tanggal Order'].dt.month == 9]
+    september_data = df_sl[df_sl['Tanggal Order'].dt.month == 10]
 
     if not september_data.empty:
         # Hitung total omset (hilangkan 'Rp' dan koma agar bisa dijumlahkan)
@@ -212,6 +212,7 @@ def main():
     
 if __name__ == "__main__":
     main()
+
 
 
 
