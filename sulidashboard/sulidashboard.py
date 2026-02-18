@@ -17,11 +17,11 @@ sys.stderr.reconfigure(encoding='utf-8')
 
 st_autorefresh(interval=60 * 1000)
 st.set_page_config(layout="wide")
-st.title('Dashboard Distributor Suli 5 Tangerang Selatan 2025')
+st.title('Dashboard Distributor Suli 5 Tangerang Selatan 2026')
 # Refresh page every 60 seconds
 
 @st.cache_data(ttl=60)
-def get_data():
+def get_data(nama_sheet):
     # Tentukan scope untuk mengakses Google Sheets dan Google Drive
     scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
 
@@ -35,18 +35,18 @@ def get_data():
 
     # Akses Google Spreadsheet
     spreadsheet = client.open("Transaksi Masuk")
-    sheet = spreadsheet.get_worksheet(0)
+    sheet = spreadsheet.get_worksheet(nama_sheet)
     data = sheet.get_all_values()
-    df_SL = pd.DataFrame(data[1:], columns=data[0])
-    return df_SL
+    df = pd.DataFrame(data[1:], columns=data[0])
+    return df
 
-# Sheets Publikasi Internasional
 # df_SL = pd.read_excel('Form Capaian PRSDI.xlsx', sheet_name='SL')
 # dfl_SL = get_data()
-df_SL = get_data()
+df_revenue = get_data("Trans_Penjualan")
+df_expense = get_data("Expense")
 
 #Data Preprocessing
-def hapus_baris_kosong(df, kolom):
+#def hapus_baris_kosong(df, kolom):
     # Ganti string kosong atau whitespace dengan NaN
     df[kolom] = df[kolom].replace(r'^\s*$', None, regex=True)
     
@@ -56,10 +56,27 @@ def hapus_baris_kosong(df, kolom):
     return df_bersih
 
 # Menggunakan cache untuk data preprocessing
-def preprocessing(df_SL):
-    df_suli = hapus_baris_kosong(df_SL, "Nama Barang")
-    return df_suli
+#def preprocessing(df_SL):
+    #df_suli = hapus_baris_kosong(df_SL, "Nama Barang")
+    #return df_suli
 
+def format_rupiah(x):
+    return f"Rp{int(x):,.0F}"
+    
+def total_sales(df_sl):
+    # Pastikan kolom Tanggal Order dalam format datetime
+    df_revenue['Tanggal Order'] = pd.to_datetime(df_revenue['Tanggal Order'], errors='coerce')
+
+    # Filter data untuk bulan September
+    september_data = df_revenue[df_revenue['Tanggal Order'].dt.month == 2]
+
+    if not september_data.empty:
+        # Hitung total omset (hilangkan 'Rp' dan koma agar bisa dijumlahkan)
+        total = september_data['Omset'].sum()
+        return total
+    else:
+        return 0
+"""
 #Preprocessing Data
 df_sl = preprocessing(df_SL)
 
@@ -125,7 +142,7 @@ def jumlah_barang_per_bulan(df_sl):
     fig.update_layout(xaxis_title='Nama Barang', yaxis_title='Jumlah')
     return fig
 
-def sales_perbulan(df_sl):
+#def sales_perbulan(df_sl):
     #df_sl['Bulan'] = df_sl['Tanggal Order'].dt.month
 
     sales_sum = df_sl.groupby('Bulan')['Omset'].sum()
@@ -170,11 +187,15 @@ def bar_jumlahbarang(df_sl):
     fig.update_traces(textposition='outside')
    
     return fig
+"""
 
 # Streamlit App
 def main():
-    """### **Data Publikasi Internasional**"""
-
+    st.markdown(
+        f"<h3>Omset bulan ini: Rp{total_sales(df_sl):,.0f}</h3>",
+        unsafe_allow_html=True
+        )
+"""
     df1 = tagihan(df_sl)
     df2 = jumlah_barang_per_bulan(df_sl)
     df3 = sales_perbulan(df_sl)
@@ -208,15 +229,7 @@ def main():
         st.plotly_chart(fig1)
     with col2:
         st.plotly_chart(fig2)
-
+"""
     
 if __name__ == "__main__":
     main()
-
-
-
-
-
-
-
-
