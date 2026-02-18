@@ -44,7 +44,7 @@ def get_data(nama_sheet):
 # dfl_SL = get_data()
 df_revenue = get_data("Trans_Penjualan")
 df_expense = get_data("Expense")
-
+"""
 #Data Preprocessing
 #def hapus_baris_kosong(df, kolom):
     # Ganti string kosong atau whitespace dengan NaN
@@ -54,7 +54,7 @@ df_expense = get_data("Expense")
     df_bersih = df.dropna(subset=[kolom])
     
     return df_bersih
-
+"""
 # Menggunakan cache untuk data preprocessing
 #def preprocessing(df_SL):
     #df_suli = hapus_baris_kosong(df_SL, "Nama Barang")
@@ -233,3 +233,4 @@ def main():
     
 if __name__ == "__main__":
     main()
+
