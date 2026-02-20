@@ -53,21 +53,7 @@ try:
     
 except Exception as e:
     st.error(f"Gagal mengambil data: {e}")
-"""
-#Data Preprocessing
-#def hapus_baris_kosong(df, kolom):
-    # Ganti string kosong atau whitespace dengan NaN
-    df[kolom] = df[kolom].replace(r'^\s*$', None, regex=True)
-    
-    # Hapus baris yang memilisl nilai NaN pada kolom tertentu
-    df_bersih = df.dropna(subset=[kolom])
-    
-    return df_bersih
-"""
-# Menggunakan cache untuk data preprocessing
-#def preprocessing(df_SL):
-    #df_suli = hapus_baris_kosong(df_SL, "Nama Barang")
-    #return df_suli
+
 
 def calculate_total(df, column_name):
     total = pd.to_numeric(df[column_name], errors='coerce').sum()
@@ -83,3 +69,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
