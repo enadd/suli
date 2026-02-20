@@ -59,6 +59,7 @@ def calculate_total(df, column_name):
     if column_name in df.columns:
         series = df[column_name].astype(str)
         series = series.str.replace(r'[Rp.\s,]', '', regex=True)
+        numeric_col = pd.to_numeric(series, errors='coerce')
         return numeric_col.fillna(0).sum()
     else:
         st.error(f"Kolom '{column_name}' tidak ada!")
@@ -74,5 +75,6 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
 
