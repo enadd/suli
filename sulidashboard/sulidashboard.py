@@ -72,6 +72,8 @@ except Exception as e:
 def calculate_total(df, column_name):
     total = pd.to_numeric(df[column_name], errors='coerce').sum()
     return total
+    
+total_revenue = calculate_total(df_revenue, 'Omset')
 """
 #Preprocessing Data
 df_sl = preprocessing(df_SL)
@@ -184,7 +186,7 @@ def bar_jumlahbarang(df_sl):
    
     return fig
 """
-total_revenue = calculate_total(df_revenue, 'Omset')
+
 
 # Streamlit App
 def main():
@@ -228,3 +230,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
