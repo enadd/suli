@@ -66,15 +66,18 @@ def calculate_total(df, column_name):
         return 0
     
 total_revenue = calculate_total(df_revenue, 'Omset')
+total_grossprofit = calculate_total(df_revenue, 'Gross Profit')
 
 
 # Streamlit App
 def main():
 
     st.metric("Total Revenue", f"Rp {total_revenue:,.0f}", delta=f"{total_revenue:,.0f}")
+    st.metric("Total Gross Profit", f"Rp {total_grossprofit:,.0f}", delta=f"{total_grossprofit:,.0f}")
 
 if __name__ == "__main__":
     main()
+
 
 
 
