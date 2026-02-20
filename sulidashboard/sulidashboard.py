@@ -37,6 +37,7 @@ def get_data(nama_sheet):
     spreadsheet = client.open("Transaksi Masuk")
     sheet = spreadsheet.worksheet(nama_sheet)
     data = sheet.get_all_records()
+    df = pd.DataFrame(data)
     return df
 
 # df_SL = pd.read_excel('Form Capaian PRSDI.xlsx', sheet_name='SL')
@@ -76,6 +77,7 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
 
 
