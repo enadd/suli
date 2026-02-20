@@ -69,6 +69,9 @@ except Exception as e:
     #df_suli = hapus_baris_kosong(df_SL, "Nama Barang")
     #return df_suli
 
+def calculate_total(df, column_name):
+    total = pd.to_numeric(df[column_name], errors='coerce').sum()
+    return total
 """
 #Preprocessing Data
 df_sl = preprocessing(df_SL)
@@ -181,12 +184,13 @@ def bar_jumlahbarang(df_sl):
    
     return fig
 """
+total_revenue = calculate_total(df_revenue, 'Omset')
 
 # Streamlit App
-"""
 def main():
-   
 
+    st.metric("Total Revenue", f"Rp {total_revenue:,.0f}", delta=f"{total_revenue:,.0f}")
+"""
     df1 = tagihan(df_sl)
     df2 = jumlah_barang_per_bulan(df_sl)
     df3 = sales_perbulan(df_sl)
@@ -220,8 +224,7 @@ def main():
         st.plotly_chart(fig1)
     with col2:
         st.plotly_chart(fig2)
-    
-if __name__ == "__main__":
-    main()
 """
 
+if __name__ == "__main__":
+    main()
