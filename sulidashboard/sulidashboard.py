@@ -56,8 +56,13 @@ except Exception as e:
 
 
 def calculate_total(df, column_name):
-    total = pd.to_numeric(df[column_name], errors='coerce').sum()
-    return total
+    if column_name in df.columns:
+        series = df[column_name].astype(str)
+        series = series.str.replace(r'[Rp.\s,]', '', regex=True)
+        return numeric_col.fillna(0).sum()
+    else:
+        st.error(f"Kolom '{column_name}' tidak ada!")
+        return 0
     
 total_revenue = calculate_total(df_revenue, 'Omset')
 
@@ -69,4 +74,5 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
