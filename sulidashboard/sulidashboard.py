@@ -174,9 +174,10 @@ def bar_jumlahbarang(df_sl):
 """
 
 # Streamlit App
+"""
 def main():
    
-"""
+
     df1 = tagihan(df_sl)
     df2 = jumlah_barang_per_bulan(df_sl)
     df3 = sales_perbulan(df_sl)
@@ -210,9 +211,7 @@ def main():
         st.plotly_chart(fig1)
     with col2:
         st.plotly_chart(fig2)
-"""
     
 if __name__ == "__main__":
     main()
-
-
+"""
