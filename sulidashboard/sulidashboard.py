@@ -72,11 +72,15 @@ total_grossprofit = calculate_total(df_revenue, 'Gross Profit')
 # Streamlit App
 def main():
 
-    st.metric("Total Revenue", f"Rp {total_revenue:,.0f}", delta=f"{total_revenue:,.0f}")
-    st.metric("Total Gross Profit", f"Rp {total_grossprofit:,.0f}", delta=f"{total_grossprofit:,.0f}")
+    col1, col2 = st.column(2)
+    with col1:
+        st.metric("Total Revenue bulan ini", f"Rp {total_revenue:,.0f}", delta=f"{total_revenue:,.0f}")
+    with col2:
+        st.metric("Total Gross Profit bulan ini", f"Rp {total_grossprofit:,.0f}", delta=f"{total_grossprofit:,.0f}")
 
 if __name__ == "__main__":
     main()
+
 
 
 
