@@ -35,15 +35,24 @@ def get_data(nama_sheet):
 
     # Akses Google Spreadsheet
     spreadsheet = client.open("Transaksi Masuk")
-    sheet = spreadsheet.get_worksheet(nama_sheet)
-    data = sheet.get_all_values()
+    sheet = spreadsheet.worksheet(nama_sheet)
+    data = sheet.get_all_records()
     df = pd.DataFrame(data[1:], columns=data[0])
     return df
 
 # df_SL = pd.read_excel('Form Capaian PRSDI.xlsx', sheet_name='SL')
 # dfl_SL = get_data()
-df_revenue = get_data("Trans_Penjualan")
-df_expense = get_data("Expense")
+try:
+    df_revenue = get_data("Trans_Penjualan")
+    df_expense = get_data("Expense")
+
+    # Cek hasil
+    st.success("Data berhasil dimuat!")
+    st.subheader("Data Penjualan")
+    st.write(df_revenue.head())
+    
+except Exception as e:
+    st.error(f"Gagal mengambil data: {e}")
 """
 #Data Preprocessing
 #def hapus_baris_kosong(df, kolom):
@@ -215,3 +224,4 @@ def main():
 if __name__ == "__main__":
     main()
 """
+
