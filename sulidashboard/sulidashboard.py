@@ -60,22 +60,6 @@ df_expense = get_data("Expense")
     #df_suli = hapus_baris_kosong(df_SL, "Nama Barang")
     #return df_suli
 
-def format_rupiah(x):
-    return f"Rp{int(x):,.0F}"
-    
-def total_sales(df_sl):
-    # Pastikan kolom Tanggal Order dalam format datetime
-    df_revenue['Tanggal Order'] = pd.to_datetime(df_revenue['Tanggal Order'], errors='coerce')
-
-    # Filter data untuk bulan September
-    september_data = df_revenue[df_revenue['Tanggal Order'].dt.month == 2]
-
-    if not september_data.empty:
-        # Hitung total omset (hilangkan 'Rp' dan koma agar bisa dijumlahkan)
-        total = september_data['Omset'].sum()
-        return total
-    else:
-        return 0
 """
 #Preprocessing Data
 df_sl = preprocessing(df_SL)
@@ -191,10 +175,7 @@ def bar_jumlahbarang(df_sl):
 
 # Streamlit App
 def main():
-    st.markdown(
-        f"<h3>Omset bulan ini: Rp{total_sales(df_sl):,.0f}</h3>",
-        unsafe_allow_html=True
-        )
+   
 """
     df1 = tagihan(df_sl)
     df2 = jumlah_barang_per_bulan(df_sl)
@@ -233,4 +214,5 @@ def main():
     
 if __name__ == "__main__":
     main()
+
 
