@@ -65,7 +65,7 @@ def calculate_total(df, column_name):
         st.error(f"Kolom '{column_name}' tidak ada!")
         return 0
     
-total_revenue = calculate_total(df_revenue, 'Omset')
+total_revenue = calculate_total(df_revenue, 'Revenue')
 total_grossprofit = calculate_total(df_revenue, 'Gross Profit')
 
 total_expense = calculate_total(df_expense, 'Jumlah')
@@ -94,6 +94,7 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
 
 
