@@ -70,7 +70,7 @@ total_grossprofit = calculate_total(df_revenue, 'Gross Profit')
 
 total_expense = calculate_total(df_expense, 'Jumlah')
 
-operating_margin = total_expense / total_revenue
+operating_margin = total_expense / total_revenue * 100%
 
 # Streamlit App
 def main():
@@ -90,3 +90,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
