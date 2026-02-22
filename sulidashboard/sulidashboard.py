@@ -70,7 +70,7 @@ total_grossprofit = calculate_total(df_revenue, 'Gross Profit')
 
 total_expense = calculate_total(df_expense, 'Jumlah')
 
-operating_margin = total_expense / total_revenue * 100%
+operating_margin = total_expense / total_revenue * 100
 
 # Streamlit App
 def main():
@@ -85,9 +85,14 @@ def main():
     with col1:
         st.metric("Total Expense bulan ini", f"Rp {total_expense:,.0f}", delta=f"{total_expense:,.0f}")
     with col2:
-        st.metric("Operating Margin bulan ini", f"Rp {operating_margin:,.0f}", delta=f"{operating_margin:,.0f}")
+        st.metric(
+            label="Operating Margin Bulan Ini", 
+            value=f"{ratio:.2%}", 
+            delta=f"{operating_margin:,.0f}"
+            )
 
 
 if __name__ == "__main__":
     main()
+
 
