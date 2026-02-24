@@ -83,7 +83,7 @@ def calculate_groupby(df, group_column, target_column):
 total_revenue = calculate_total(df_revenue, 'Revenue')
 total_grossprofit = calculate_total(df_revenue, 'Gross Profit')
 
-revenue_percustomer = calculate_groupby(df_revenue, 'Nama Pelanggan', 'Revenue')
+revenue_percustomer = calculate_groupby(df_revenue, 'Nama Pelanggan', 'Revenue').head()
 
 #outcome
 total_expense = calculate_total(df_expense, 'Jumlah')
@@ -95,7 +95,6 @@ operating_margin = (total_revenue - total_expense) / total_revenue
 def main():
 
     st.dataframe(df_revenue)
-    st.dataframe(revenue_percustomer)
     
     col1, col2 = st.columns(2)
     with col1:
@@ -115,6 +114,7 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
 
 
