@@ -89,7 +89,7 @@ revenue_percustomer = (
     .head(5)
 )
 
-qty_perproduct = calculate_groupby(df_revenue, 'Nama Produk', 'Qty')
+qty_perproduct = calculate_groupby(df_revenue, 'Nama Produk', 'Qty').update_traces(textposition='outside')
 
 #outcome
 total_expense = calculate_total(df_expense, 'Jumlah')
@@ -110,6 +110,7 @@ def main():
     with col2:
         st.metric("Total Gross Profit bulan ini", f"Rp {total_grossprofit:,.0f}", delta=f"{total_grossprofit:,.0f}")
 
+    st.subheader("Item terjual")
     st.bar_chart(data=qty_perproduct, x='Nama Produk', y='Qty')
 
     st.subheader("Evaluate Metrics")
@@ -125,3 +126,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
