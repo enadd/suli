@@ -63,18 +63,39 @@ def calculate_total(df, column_name):
     else:
         st.error(f"Kolom '{column_name}' tidak ada!")
         return 0
-    
+
+def calculate_groupby(df, group_column, target_column):
+   if target_column in df.columns and group_column in df.columns:
+        # 1. Bersihkan data (Sama seperti logika kamu)
+        series = df[target_column].astype(str).str.replace(r'[Rp.\s,]', '', regex=True)
+        
+        # 2. Buat DataFrame sementara agar group_column dan target_column berada di satu wadah
+        temp_df = df[[group_column]].copy() 
+        temp_df[target_column] = pd.to_numeric(series, errors='coerce').fillna(0)
+        
+        # 3. Lakukan GroupBy
+        return temp_df.groupby(group_column)[target_column].sum().reset_index()
+    else:
+        st.error(f"Kolom '{group_column}' atau '{target_column}' tidak ditemukan!")
+        return pd.DataFrame() # Kembalikan DF kosong agar tidak error di UI
+        
+#income
 total_revenue = calculate_total(df_revenue, 'Revenue')
 total_grossprofit = calculate_total(df_revenue, 'Gross Profit')
 
+revenue_percustomer = calculate_groupby(df_revenue, 'Nama Pelanggan', 'Revenue'
+
+#outcome
 total_expense = calculate_total(df_expense, 'Jumlah')
 
+#evaluate
 operating_margin = (total_revenue - total_expense) / total_revenue
 
 # Streamlit App
 def main():
 
     st.dataframe(df_revenue)
+    st.dataframe(revenue_percustomer)
     
     col1, col2 = st.columns(2)
     with col1:
@@ -92,12 +113,5 @@ def main():
             delta=f"{operating_margin:,.0f}"
             )
 
-
 if __name__ == "__main__":
     main()
-
-
-
-
-
-
