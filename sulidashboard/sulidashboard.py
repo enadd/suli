@@ -75,7 +75,7 @@ def calculate_groupby(df, group_column, target_column):
         
         # 3. Lakukan GroupBy
         return temp_df.groupby(group_column)[target_column].sum().reset_index()
-    else:
+        else:
         st.error(f"Kolom '{group_column}' atau '{target_column}' tidak ditemukan!")
         return pd.DataFrame() # Kembalikan DF kosong agar tidak error di UI
         
@@ -115,3 +115,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
