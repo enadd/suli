@@ -89,7 +89,7 @@ revenue_percustomer = (
     .head(5)
 )
 
-qty_perproduct = calculate_groupby(df_revenue, 'Nama Produk', 'Qty').update_traces(textposition='outside')
+qty_perproduct = (calculate_groupby(df_revenue, 'Nama Produk', 'Qty').update_traces(textposition='outside'))
 
 #outcome
 total_expense = calculate_total(df_expense, 'Jumlah')
@@ -126,4 +126,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
