@@ -49,7 +49,6 @@ try:
     # Cek hasil
     st.success("Data berhasil dimuat!")
     st.subheader("Data Penjualan")
-    st.write(df_revenue.head())
     
 except Exception as e:
     st.error(f"Gagal mengambil data: {e}")
@@ -75,6 +74,8 @@ operating_margin = (total_revenue - total_expense) / total_revenue
 # Streamlit App
 def main():
 
+    st.dataframe(df_revenue)
+    
     col1, col2 = st.columns(2)
     with col1:
         st.metric("Total Revenue bulan ini", f"Rp {total_revenue:,.0f}", delta=f"{total_revenue:,.0f}")
@@ -94,6 +95,7 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
 
 
