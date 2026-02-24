@@ -65,19 +65,16 @@ def calculate_total(df, column_name):
         return 0
 
 def calculate_groupby(df, group_column, target_column):
-   if target_column in df.columns and group_column in df.columns:
-        # 1. Bersihkan data (Sama seperti logika kamu)
+    if target_column in df.columns and group_column in df.columns:
         series = df[target_column].astype(str).str.replace(r'[Rp.\s,]', '', regex=True)
         
-        # 2. Buat DataFrame sementara agar group_column dan target_column berada di satu wadah
         temp_df = df[[group_column]].copy() 
         temp_df[target_column] = pd.to_numeric(series, errors='coerce').fillna(0)
         
-        # 3. Lakukan GroupBy
         return temp_df.groupby(group_column)[target_column].sum().reset_index()
     else:
         st.error(f"Kolom '{group_column}' atau '{target_column}' tidak ditemukan!")
-        return pd.DataFrame() # Kembalikan DF kosong agar tidak error di UI
+        return pd.DataFrame()
         
 #income
 total_revenue = calculate_total(df_revenue, 'Revenue')
@@ -115,6 +112,7 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
 
 
