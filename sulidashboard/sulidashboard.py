@@ -100,13 +100,15 @@ def main():
 
     st.subheader("Top 5 Customer")
     st.dataframe(revenue_percustomer)
-    
+
+    st.subheader("Income")
     col1, col2 = st.columns(2)
     with col1:
         st.metric("Total Revenue bulan ini", f"Rp {total_revenue:,.0f}", delta=f"{total_revenue:,.0f}")
     with col2:
         st.metric("Total Gross Profit bulan ini", f"Rp {total_grossprofit:,.0f}", delta=f"{total_grossprofit:,.0f}")
 
+    st.subheader("Evaluate Metrics")
     col1, col2 = st.columns(2)
     with col1:
         st.metric("Total Expense bulan ini", f"Rp {total_expense:,.0f}", delta=f"{total_expense:,.0f}")
@@ -119,6 +121,7 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
 
 
