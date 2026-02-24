@@ -98,7 +98,7 @@ operating_margin = (total_revenue - total_expense) / total_revenue
 # Streamlit App
 def main():
 
-    st.dataframe(df_revenue)
+    st.subheader("Top 5 Customer")
     st.dataframe(revenue_percustomer)
     
     col1, col2 = st.columns(2)
@@ -119,6 +119,7 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
 
 
