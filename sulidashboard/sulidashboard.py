@@ -110,7 +110,7 @@ def main():
     with col2:
         st.metric("Total Gross Profit bulan ini", f"Rp {total_grossprofit:,.0f}", delta=f"{total_grossprofit:,.0f}")
 
-    st.bar_chart(data=qty_perproduct, x='Produk', y='Jumlah')
+    st.bar_chart(data=qty_perproduct, x='Nama Produk', y='Qty')
 
     st.subheader("Evaluate Metrics")
     col1, col2 = st.columns(2)
@@ -125,15 +125,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-
-
-
-
-
-
-
-
-
-
-
