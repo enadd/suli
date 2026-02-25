@@ -78,6 +78,30 @@ def calculate_groupby(df, group_column, target_column):
     else:
         st.error(f"Kolom '{group_column}' atau '{target_column}' tidak ditemukan!")
         return pd.DataFrame() # Kembalikan DF kosong agar tidak error di UI
+
+def calculate_monthly_item_sales(df, date_column, product_column, qty_column):
+    if all(col in df.columns for col in [date_column, product_column, qty_column]):
+        
+        # 1. Pastikan tanggal dalam format datetime
+        df[date_column] = pd.to_datetime(df[date_column], errors='coerce')
+        
+        # 2. Buat kolom Bulan
+        df['Bulan'] = df[date_column].dt.to_period('M').astype(str)
+        
+        # 3. Pastikan Qty numerik
+        df[qty_column] = pd.to_numeric(df[qty_column], errors='coerce').fillna(0)
+        
+        # 4. Group by Bulan & Produk
+        grouped = df.groupby(['Bulan', product_column])[qty_column].sum().reset_index()
+        
+        # 5. Pivot supaya produk jadi kolom kanan
+        pivot = grouped.pivot(index='Bulan', columns=product_column, values=qty_column).fillna(0)
+        
+        return pivot.reset_index()
+    
+    else:
+        st.error("Kolom tidak ditemukan di DataFrame!")
+        return pd.DataFrame()
         
 #income
 total_revenue = calculate_total(df_revenue, 'Revenue')
@@ -89,7 +113,12 @@ revenue_percustomer = (
     .head(5)
 )
 
-qty_perproduct = calculate_groupby(df_revenue, 'Nama Produk', 'Qty')
+monthly_items = calculate_monthly_item_sales(
+    df, 
+    date_column='Tanggal', 
+    product_column='Nama Produk', 
+    qty_column='Qty'
+)
 
 #outcome
 total_expense = calculate_total(df_expense, 'Jumlah')
@@ -111,8 +140,7 @@ def main():
         st.metric("Total Gross Profit bulan ini", f"Rp {total_grossprofit:,.0f}", delta=f"{total_grossprofit:,.0f}")
 
     st.markdown("####Item terjual")
-    st.dataframe(qty_perproduct)
-    st.bar_chart(data=qty_perproduct, x='Nama Produk', y='Qty')
+    st.dataframe(monthly_items)
 
     st.subheader("Expense")
     st.metric("Total Expense bulan ini", f"Rp {total_expense:,.0f}", delta=f"{total_expense:,.0f}")
@@ -129,5 +157,6 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
 
