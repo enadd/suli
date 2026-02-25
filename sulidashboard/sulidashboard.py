@@ -110,6 +110,9 @@ def main():
     with col2:
         st.metric("Total Gross Profit bulan ini", f"Rp {total_grossprofit:,.0f}", delta=f"{total_grossprofit:,.0f}")
 
+    st.markdown("####Item terjual")
+    st.bar_chart(data=qty_perproduct, x='Nama Produk', y='Qty')
+
     st.subheader("Expense")
     st.metric("Total Expense bulan ini", f"Rp {total_expense:,.0f}", delta=f"{total_expense:,.0f}")
    
@@ -120,9 +123,9 @@ def main():
             delta=f"{operating_margin:,.0f}"
             )
 
-    st.subheader("Item terjual")
-    st.bar_chart(data=qty_perproduct, x='Nama Produk', y='Qty')
+    
 
 
 if __name__ == "__main__":
     main()
+
