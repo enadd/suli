@@ -120,7 +120,7 @@ monthly_items = calculate_monthly_item_sales(
     qty_column='Qty'
 )
 
-monthly_revenue = (calculate_monthly_item_sales(
+monthly_revenue = calculate_monthly_item_sales(
     df_revenue, 
     date_column='Tanggal Order', 
     product_column='Nama Produk', 
@@ -164,3 +164,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
