@@ -89,6 +89,7 @@ def calculate_monthly_item_sales(df, date_column, product_column, qty_column):
         df['Bulan'] = df[date_column].dt.to_period('M').astype(str)
         
         # 3. Pastikan Qty numerik
+        df[qty_column] = df[qty_column].astype(str).str.replace(r'[Rp.\s,]', '', regex=True)
         df[qty_column] = pd.to_numeric(df[qty_column], errors='coerce').fillna(0)
         
         # 4. Group by Bulan & Produk
@@ -164,4 +165,5 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
