@@ -79,6 +79,20 @@ def calculate_groupby(df, group_column, target_column):
         st.error(f"Kolom '{group_column}' atau '{target_column}' tidak ditemukan!")
         return pd.DataFrame() # Kembalikan DF kosong agar tidak error di UI
 
+def calculate_order_frequency(df, group_column, target_column):
+    if target_column in df.columns and group_column in df.columns:
+        # Kita hanya butuh kolom yang relevan
+        # .count() akan menghitung semua baris yang tidak null
+        result = df.groupby(group_column)[target_column].count().reset_index()
+        
+        # Rename kolom agar lebih informatif
+        result.columns = [group_column, 'Jumlah Order']
+        return result
+    else:
+        # Jika kamu pakai Streamlit (st.error), pastikan library sudah di-import
+        print(f"Kolom '{group_column}' atau '{target_column}' tidak ditemukan!")
+        return pd.DataFrame()
+
 def calculate_monthly_item_sales(df, date_column, product_column, qty_column):
     if all(col in df.columns for col in [date_column, product_column, qty_column]):
         
@@ -114,7 +128,7 @@ revenue_percustomer = (
     .head(5)
 )
 
-order_percustomer = calculate_groupby(df_revenue, 'Nama Pelanggan', 'Tanggal Order')
+order_percustomer = calculate_order_frequency(df_revenue, 'Nama Pelanggan', 'Tanggal Order')
 
 monthly_items = calculate_monthly_item_sales(
     df_revenue, 
@@ -180,4 +194,5 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
