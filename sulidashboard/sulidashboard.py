@@ -128,6 +128,13 @@ monthly_revenue = calculate_monthly_item_sales(
     qty_column='Revenue'
 )
 
+monthly_grossprofit = calculate_monthly_item_sales(
+    df_revenue, 
+    date_column='Tanggal Order', 
+    product_column='Nama Produk', 
+    qty_column='Gross Profit'
+)
+
 #outcome
 total_expense = calculate_total(df_expense, 'Jumlah')
 
@@ -147,11 +154,14 @@ def main():
     with col2:
         st.metric("Total Gross Profit bulan ini", f"Rp {total_grossprofit:,.0f}", delta=f"{total_grossprofit:,.0f}")
 
-    st.markdown("####Item terjual")
+    st.markdown("###Item terjual")
     st.dataframe(monthly_items)
 
     st.markdown("###Revenue per item")
     st.dataframe(monthly_revenue)
+
+    st.markdown("###Gross Profit per item")
+    st.dataframe(monthly_grossprofit)
 
     st.subheader("Expense")
     st.metric("Total Expense bulan ini", f"Rp {total_expense:,.0f}", delta=f"{total_expense:,.0f}")
@@ -165,5 +175,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-
