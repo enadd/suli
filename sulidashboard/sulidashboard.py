@@ -55,7 +55,7 @@ except Exception as e:
     st.error(f"Gagal mengambil data: {e}")
 
 
-def calculate_total(df, column_name, date_column='Tanggal'):
+def calculate_total(df, column_name, date_column='Tanggal Order'):
     if column_name in df.columns and date_column in df.columns:
         # Konversi ke datetime (otomatis)
         df_temp = df.copy()
@@ -133,8 +133,8 @@ def calculate_monthly_item_sales(df, date_column, product_column, qty_column):
         return pd.DataFrame()
         
 #income
-total_revenue = calculate_total(df_revenue, 'Revenue', date_column='Tanggal')
-total_grossprofit = calculate_total(df_revenue, 'Gross Profit', date_column='Tanggal')
+total_revenue = calculate_total(df_revenue, 'Revenue', date_column='Tanggal Order')
+total_grossprofit = calculate_total(df_revenue, 'Gross Profit', date_column='Tanggal Order')
 
 revenue_percustomer = (
     calculate_groupby(df_revenue, 'Nama Pelanggan', 'Revenue')
@@ -208,6 +208,7 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
 
 
