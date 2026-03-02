@@ -54,25 +54,27 @@ except Exception as e:
     st.error(f"Gagal mengambil data: {e}")
 
 
-def calculate_total(df, column_name, date_column):
+def calculate_total_this_month(df, column_name, date_column='Tanggal'):
     if column_name in df.columns and date_column in df.columns:
-        df[date_column] = pd.to_datetime(df[date_column], errors='coerce')
+        # Konversi ke datetime (otomatis)
+        df_temp = df.copy()
+        df_temp[date_column] = pd.to_datetime(df_temp[date_column], errors='coerce')
         
+        # Ambil Waktu Sekarang secara otomatis
         now = datetime.now()
-        current_month = now.month
-        current_year = now.year
         
-        # 3. Filter DataFrame untuk bulan ini saja
-        mask = (df[date_column].dt.month == current_month) & (df[date_column].dt.year == current_year)
-        filtered_df = df[mask].copy()
+        # Filter: Hanya ambil data yang Bulan & Tahun-nya sama dengan hari ini
+        mask = (df_temp[date_column].dt.month == now.month) & \
+               (df_temp[date_column].dt.year == now.year)
         
-        # 4. Bersihkan data string/currency dan ubah ke numerik
-        series = filtered_df[column_name].astype(str)
+        # Proses pembersihan angka
+        series = df_temp.loc[mask, column_name].astype(str)
         series = series.str.replace(r'[Rp.\s,]', '', regex=True)
         numeric_col = pd.to_numeric(series, errors='coerce')
+        
         return numeric_col.fillna(0).sum()
     else:
-        st.error(f"Kolom '{column_name}' tidak ada!")
+        st.error(f"Kolom '{column_name}' atau '{date_column}' tidak ditemukan!")
         return 0
 
 def calculate_groupby(df, group_column, target_column):
@@ -205,6 +207,7 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
 
 
