@@ -56,7 +56,18 @@ except Exception as e:
 
 def calculate_total(df, column_name):
     if column_name in df.columns:
-        series = df[column_name].astype(str)
+        df[date_column] = pd.to_datetime(df[date_column], errors='coerce')
+        
+        now = datetime.now()
+        current_month = now.month
+        current_year = now.year
+        
+        # 3. Filter DataFrame untuk bulan ini saja
+        mask = (df[date_column].dt.month == current_month) & (df[date_column].dt.year == current_year)
+        filtered_df = df[mask].copy()
+        
+        # 4. Bersihkan data string/currency dan ubah ke numerik
+        series = filtered_df[column_name].astype(str)
         series = series.str.replace(r'[Rp.\s,]', '', regex=True)
         numeric_col = pd.to_numeric(series, errors='coerce')
         return numeric_col.fillna(0).sum()
@@ -194,5 +205,6 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
 
