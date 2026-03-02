@@ -133,8 +133,8 @@ def calculate_monthly_item_sales(df, date_column, product_column, qty_column):
         return pd.DataFrame()
         
 #income
-total_revenue = calculate_total(df_revenue, 'Revenue')
-total_grossprofit = calculate_total(df_revenue, 'Gross Profit')
+total_revenue = calculate_total(df_revenue, 'Revenue', date_column='Tanggal')
+total_grossprofit = calculate_total(df_revenue, 'Gross Profit', date_column='Tanggal')
 
 revenue_percustomer = (
     calculate_groupby(df_revenue, 'Nama Pelanggan', 'Revenue')
@@ -208,6 +208,7 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
 
 
