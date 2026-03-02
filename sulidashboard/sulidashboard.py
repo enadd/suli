@@ -54,8 +54,8 @@ except Exception as e:
     st.error(f"Gagal mengambil data: {e}")
 
 
-def calculate_total(df, column_name):
-    if column_name in df.columns:
+def calculate_total(df, column_name, date_column):
+    if column_name in df.columns and date_column in df.columns:
         df[date_column] = pd.to_datetime(df[date_column], errors='coerce')
         
         now = datetime.now()
@@ -205,6 +205,7 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
 
 
