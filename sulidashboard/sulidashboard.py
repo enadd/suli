@@ -54,7 +54,7 @@ except Exception as e:
     st.error(f"Gagal mengambil data: {e}")
 
 
-def calculate_total_this_month(df, column_name, date_column='Tanggal'):
+def calculate_total(df, column_name, date_column='Tanggal'):
     if column_name in df.columns and date_column in df.columns:
         # Konversi ke datetime (otomatis)
         df_temp = df.copy()
@@ -207,6 +207,7 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
 
 
