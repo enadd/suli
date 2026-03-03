@@ -142,6 +142,8 @@ revenue_percustomer = (
     .head(5)
 )
 
+monthly_revenue = calculate_groupby(df_revenue, 'Tanggal', 'Revenue')
+
 order_percustomer = calculate_order_frequency(df_revenue, 'Nama Pelanggan', 'Tanggal')
 
 monthly_items = calculate_monthly_item_sales(
@@ -180,6 +182,9 @@ def main():
     st.markdown("###Jumlah order customer bulan ini")
     st.dataframe(order_percustomer)
 
+    st.markdown("###Revenue perbulan")
+    st.dataframe(monthly_revenue)
+
     st.subheader("Income")
     col1, col2 = st.columns(2)
     with col1:
@@ -208,6 +213,7 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
 
 
