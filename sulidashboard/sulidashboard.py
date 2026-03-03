@@ -153,7 +153,7 @@ monthly_items = calculate_monthly_item_sales(
     qty_column='Qty'
 )
 
-monthly_revenue = calculate_monthly_item_sales(
+revenue_peritem = calculate_monthly_item_sales(
     df_revenue, 
     date_column='Tanggal', 
     product_column='Nama Produk', 
@@ -196,7 +196,7 @@ def main():
     st.dataframe(monthly_items)
 
     st.markdown("###Revenue per item")
-    st.dataframe(monthly_revenue)
+    st.dataframe(revenue_peritem)
 
     st.markdown("###Gross Profit per item")
     st.dataframe(monthly_grossprofit)
@@ -213,16 +213,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-
-
-
-
-
-
-
-
-
-
-
-
