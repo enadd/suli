@@ -55,7 +55,7 @@ except Exception as e:
     st.error(f"Gagal mengambil data: {e}")
 
 
-def calculate_total(df, column_name, date_column='Tanggal Order'):
+def calculate_total(df, column_name, date_column='Tanggal'):
     if column_name in df.columns and date_column in df.columns:
         # Konversi ke datetime (otomatis)
         df_temp = df.copy()
@@ -133,8 +133,8 @@ def calculate_monthly_item_sales(df, date_column, product_column, qty_column):
         return pd.DataFrame()
         
 #income
-total_revenue = calculate_total(df_revenue, 'Revenue', date_column='Tanggal Order')
-total_grossprofit = calculate_total(df_revenue, 'Gross Profit', date_column='Tanggal Order')
+total_revenue = calculate_total(df_revenue, 'Revenue', date_column='Tanggal')
+total_grossprofit = calculate_total(df_revenue, 'Gross Profit', date_column='Tanggal')
 
 revenue_percustomer = (
     calculate_groupby(df_revenue, 'Nama Pelanggan', 'Revenue')
@@ -142,31 +142,31 @@ revenue_percustomer = (
     .head(5)
 )
 
-order_percustomer = calculate_order_frequency(df_revenue, 'Nama Pelanggan', 'Tanggal Order')
+order_percustomer = calculate_order_frequency(df_revenue, 'Nama Pelanggan', 'Tanggal')
 
 monthly_items = calculate_monthly_item_sales(
     df_revenue, 
-    date_column='Tanggal Order', 
+    date_column='Tanggal', 
     product_column='Nama Produk', 
     qty_column='Qty'
 )
 
 monthly_revenue = calculate_monthly_item_sales(
     df_revenue, 
-    date_column='Tanggal Order', 
+    date_column='Tanggal', 
     product_column='Nama Produk', 
     qty_column='Revenue'
 )
 
 monthly_grossprofit = calculate_monthly_item_sales(
     df_revenue, 
-    date_column='Tanggal Order', 
+    date_column='Tanggal', 
     product_column='Nama Produk', 
     qty_column='Gross Profit'
 )
 
 #outcome
-total_expense = calculate_total(df_expense, 'Jumlah')
+total_expense = calculate_total(df_expense, 'Jumlah', date_column='Tanggal')
 
 #evaluate
 operating_margin = (total_revenue - total_expense) / total_revenue
@@ -208,6 +208,7 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
 
 
