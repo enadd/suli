@@ -93,6 +93,33 @@ def calculate_groupby(df, group_column, target_column):
         st.error(f"Kolom '{group_column}' atau '{target_column}' tidak ditemukan!")
         return pd.DataFrame() # Kembalikan DF kosong agar tidak error di UI
 
+def calculate_linechart(df, group_column, target_column):
+    # Pastikan kolom ada
+    if target_column in df.columns and group_column in df.columns:
+        # 1. Bersihkan data target (Revenue)
+        # Menghapus Rp, titik, spasi, dan koma
+        clean_series = df[target_column].astype(str).str.replace(r'[Rp.\s,]', '', regex=True)
+        
+        # 2. Buat DataFrame sementara & Konversi tipe data
+        temp_df = df.copy()
+        temp_df[target_column] = pd.to_numeric(clean_series, errors='coerce').fillna(0)
+        temp_df[group_column] = pd.to_datetime(temp_df[group_column]) # Pastikan kolom grup adalah datetime
+
+        # 3. Ambil Waktu Sekarang & Filter Bulan Ini
+        now = datetime.now()
+        mask = (temp_df[group_column].dt.month == now.month) & \
+               (temp_df[group_column].dt.year == now.year)
+        
+        filtered_df = temp_df[mask] # <--- TERAPKAN FILTERNYA DI SINI
+
+        # 4. Lakukan GroupBy & Set Index (Penting untuk Line Chart)
+        result = filtered_df.groupby(group_column)[target_column].sum()
+        
+        return result
+    else:
+        st.error(f"Kolom '{group_column}' atau '{target_column}' tidak ditemukan!")
+        return pd.Series()
+
 def calculate_order_frequency(df, group_column, target_column):
     if target_column in df.columns and group_column in df.columns:
         # Kita hanya butuh kolom yang relevan
@@ -183,7 +210,7 @@ def main():
     st.dataframe(order_percustomer)
 
     st.markdown("###Revenue perbulan")
-    st.dataframe(monthly_revenue)
+    st.line_chart(monthly_revenue)
 
     st.subheader("Income")
     col1, col2 = st.columns(2)
@@ -213,3 +240,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
