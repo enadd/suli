@@ -206,16 +206,9 @@ def main():
     menu = st.sidebar.selectbox("Pilih Jenis Laporan:", ["Laporan Bulanan", "Laporan Tahunan"])
 
     if menu == "Laporan Bulanan":
+        st.divider()
         st.header("📊 Laporan Penjualan Per Bulan")
-        st.subheader("Top 5 Customer")
-        st.dataframe(revenue_percustomer)
-
-        st.markdown("###Jumlah order customer bulan ini")
-        st.dataframe(order_percustomer)
-
-        st.markdown("###Tren Revenue perhari")
-        st.line_chart(monthly_revenue)
-
+        
         st.subheader("Income")
         col1, col2 = st.columns(2)
         with col1:
@@ -233,8 +226,19 @@ def main():
             delta=f"{operating_margin:,.0f}"
             )
 
+        st.subheader("Top 5 Customer")
+        st.dataframe(revenue_percustomer)
+
+        st.markdown("###Jumlah order customer bulan ini")
+        st.dataframe(order_percustomer)
+
+        st.markdown("###Tren Revenue perhari")
+        st.line_chart(monthly_revenue)
+
+
     elif menu == "Laporan Tahunan":
-        st.header("📅 Laporan Penjualan Per Tahun")
+        st.divider()
+        st.header("📅 Laporan Penjualan Per Bulan")
         st.markdown("###Item terjual")
         st.dataframe(monthly_items)
 
@@ -247,4 +251,3 @@ def main():
         
 if __name__ == "__main__":
     main()
-
