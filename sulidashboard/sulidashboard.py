@@ -207,7 +207,7 @@ def main():
 
     if menu == "Laporan Bulanan":
         st.divider()
-        st.header("📊 Laporan Penjualan Per Bulan")
+        st.header("📊 Laporan Penjualan Bulan Ini")
         
         st.subheader("Income")
         col1, col2 = st.columns(2)
@@ -251,3 +251,4 @@ def main():
         
 if __name__ == "__main__":
     main()
+
