@@ -209,7 +209,7 @@ def main():
     st.markdown("###Jumlah order customer bulan ini")
     st.dataframe(order_percustomer)
 
-    st.markdown("###Revenue perbulan")
+    st.markdown("###Tren Revenue perhari")
     st.line_chart(monthly_revenue)
 
     st.subheader("Income")
@@ -240,6 +240,7 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
 
 
