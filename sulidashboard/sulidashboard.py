@@ -202,45 +202,57 @@ operating_margin = (total_revenue - total_expense) / total_revenue
 
 # Streamlit App
 def main():
+    st.sidebar.title("Navigasi Laporan")
+    menu = st.sidebar.selectbox("Pilih Jenis Laporan:", ["Laporan Bulanan", "Laporan Tahunan"])
 
-    st.subheader("Top 5 Customer")
-    st.dataframe(revenue_percustomer)
+    # Upload file di sidebar agar bisa dipakai di semua "halaman"
+    uploaded_file = st.sidebar.file_uploader("Upload Data Penjualan", type=['csv', 'xlsx'])
 
-    st.markdown("###Jumlah order customer bulan ini")
-    st.dataframe(order_percustomer)
+    if uploaded_file:
+        df = pd.read_csv(uploaded_file) # Atau pd.read_excel
 
-    st.markdown("###Tren Revenue perhari")
-    st.line_chart(monthly_revenue)
+        if menu == "Laporan Bulanan":
+            st.header("📊 Laporan Penjualan Per Bulan")
+            st.subheader("Top 5 Customer")
+            st.dataframe(revenue_percustomer)
 
-    st.subheader("Income")
-    col1, col2 = st.columns(2)
-    with col1:
-        st.metric("Total Revenue bulan ini", f"Rp {total_revenue:,.0f}", delta=f"{total_revenue:,.0f}")
-    with col2:
-        st.metric("Total Gross Profit bulan ini", f"Rp {total_grossprofit:,.0f}", delta=f"{total_grossprofit:,.0f}")
+            st.markdown("###Jumlah order customer bulan ini")
+            st.dataframe(order_percustomer)
 
-    st.markdown("###Item terjual")
-    st.dataframe(monthly_items)
+            st.markdown("###Tren Revenue perhari")
+            st.line_chart(monthly_revenue)
 
-    st.markdown("###Revenue per item")
-    st.dataframe(revenue_peritem)
+            st.subheader("Income")
+            col1, col2 = st.columns(2)
+            with col1:
+                st.metric("Total Revenue bulan ini", f"Rp {total_revenue:,.0f}", delta=f"{total_revenue:,.0f}")
+            with col2:
+                st.metric("Total Gross Profit bulan ini", f"Rp {total_grossprofit:,.0f}", delta=f"{total_grossprofit:,.0f}")
 
-    st.markdown("###Gross Profit per item")
-    st.dataframe(monthly_grossprofit)
-
-    st.subheader("Expense")
-    st.metric("Total Expense bulan ini", f"Rp {total_expense:,.0f}", delta=f"{total_expense:,.0f}")
+            st.subheader("Expense")
+            st.metric("Total Expense bulan ini", f"Rp {total_expense:,.0f}", delta=f"{total_expense:,.0f}")
    
-    st.subheader("Evaluate Metrics")
-    st.metric(
-            label="Operating Margin Bulan Ini", 
-            value=f"{operating_margin:.2%}", 
-            delta=f"{operating_margin:,.0f}"
-            )
+            st.subheader("Evaluate Metrics")
+            st.metric(
+                label="Operating Margin Bulan Ini", 
+                value=f"{operating_margin:.2%}", 
+                delta=f"{operating_margin:,.0f}"
+                )
 
+        elif menu == "Laporan Tahunan":
+            st.header("📅 Laporan Penjualan Per Tahun")
+            st.markdown("###Item terjual")
+            st.dataframe(monthly_items)
+
+            st.markdown("###Revenue per item")
+            st.dataframe(revenue_peritem)
+
+            st.markdown("###Gross Profit per item")
+            st.dataframe(monthly_grossprofit)
+
+    else:
+        st.info("Silakan upload file terlebih dahulu di sidebar.")
+
+    
 if __name__ == "__main__":
     main()
-
-
-
-
