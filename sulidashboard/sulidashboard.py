@@ -49,7 +49,6 @@ try:
 
     # Cek hasil
     st.success("Data berhasil dimuat!")
-    st.subheader("Data Penjualan")
     
 except Exception as e:
     st.error(f"Gagal mengambil data: {e}")
@@ -251,4 +250,5 @@ def main():
         
 if __name__ == "__main__":
     main()
+
 
